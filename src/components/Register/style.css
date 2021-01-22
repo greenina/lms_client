@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+.recruit{
+    text-align: center;
+}
+
+.name-input{
+    width: 500px;
+    height: 40px;
+    margin: 10px;
+}
+.studentId-input{
+    width: 500px;
+    height: 40px;
+    margin-top: 10px;
+}
+.phoneNum-input{
+    width: 500px;
+    height: 40px;
+    margin: 10px;
+}
+.email-input{
+    width: 500px;
+    height: 40px;
+    margin: 10px;
+}
+.group-input{
+    width: 500px;
+    height: 40px;
+    margin: 10px;
+}
+
+.format{
+    orientation: center;
+}
+
+.apply_title{
+    font-family: 'Nanum Gothic';
+    font-weight: bolder;
+    padding-top: 15px;
+    color: rgb(77, 77, 109);
+    font-size: 30px;
+    margin-top: 3px;
+    text-align: center;
+}
+.titlePaper{
+    height: 70px;
+}
+.recruit{
+    background: rgb(234, 233, 240);
+    height: 1370px;
+}
+.blank{
+    height: 20px;
+}
+.blank1{
+    height: 7px;
+}
+.blank2{
+    height: 7px;
+}
+.blank3{
+    height: 7px;
+}
+.blank4{
+    height: 7px;
+}
+.blank5{
+    height: 7px;
+}
+.motive-input{
+    margin-top: 14px;
+}
+.submit{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.name-input{
+    width: 560px;
+    font-family: 'Nanum Gothic';
+    margin-bottom: 15px;
+}
+.studentId-input{
+    width: 560px;
+    font-family: 'Nanum Gothic';
+    margin-bottom: 15px;
+}
+.phoneNum-input{
+    width: 560px;
+    font-family: 'Nanum Gothic';
+    margin-bottom: 15px;
+}
+.email-input{
+    width: 560px;
+    font-family: 'Nanum Gothic';
+    margin-bottom: 15px;
+}
+.group-input{
+    width: 560px;
+    font-family: 'Nanum Gothic';
+    margin-bottom: 15px;
+}
+.motive-input{
+    width: 560px;
+    font-family: 'Nanum Gothic';
+    min-height: 500px;
+    margin-bottom: 15px;
+}
+.nameq{
+    margin-left: 15px;
+    padding-top: 13px;
+    font-family: 'Nanum Gothic';
+    font-weight: bolder;
+}
+.studentIdq{
+    margin-left: 15px;
+    padding-top: 13px;
+    font-family: 'Nanum Gothic';
+    font-weight: bolder;
+}
+.phoneNumq{
+    margin-left: 15px;
+    padding-top: 13px;
+    font-family: 'Nanum Gothic';
+    font-weight: bolder;
+}
+.emailq{
+    margin-left: 15px;
+    padding-top: 13px;
+    font-family: 'Nanum Gothic';
+    font-weight: bolder;
+}
+.groupq{
+    margin-left: 15px;
+    padding-top: 13px;
+    font-family: 'Nanum Gothic';
+    font-weight: bolder;
+}
+.motiveq{
+    margin-left: 15px;
+    padding-top: 13px;
+    font-family: 'Nanum Gothic';
+    font-weight: bolder;
+}
