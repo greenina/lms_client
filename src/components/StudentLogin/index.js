@@ -26,6 +26,7 @@ class StudentLogin extends Component{
     .catch(error =>{
       console.log(error)
     })
+    document.location.href = "/main";
     
   }
 
@@ -57,7 +58,6 @@ class StudentLogin extends Component{
               </Paper>
               
               <button className = 'submit' onClick={this.submitHandler}>완료</button>
-                {/* <img className = 'submit' src = "/images/apply_button.png" height='50px' onClick={this.submitHandler}></img> */}
             </Grid>
             
           </Grid>
