@@ -3,7 +3,7 @@ import './style.css'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import MainPage from '../MainPage'
+import MainPage from '../ProfMain'
 import {Route} from 'react-router-dom'
 
 
@@ -28,7 +28,7 @@ class ProfLogin extends Component{
     .catch(error =>{
       console.log(error)
     })
-    document.location.href = "/main";
+    document.location.href = "/profmain";
     
   }
 
@@ -62,7 +62,6 @@ class ProfLogin extends Component{
                     </Paper>
                     
                     <button className = 'submit' onClick={this.submitHandler}>완료</button>
-                        {/* <img className = 'submit' src = "/images/apply_button.png" height='50px' onClick={this.submitHandler}></img> */}
                     </Grid>
                     
                 </Grid>

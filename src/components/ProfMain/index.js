@@ -4,10 +4,10 @@ import Classes from '../Classes';
 
 
 
-const MainPage = () => {
+const ProfMain = () => {
     return(
         <div>
-            <h1>Main Page</h1>
+            <h1>Professor Main Page</h1>
             캘린더랑 class들
             <Calender/>
             <Classes/>
@@ -15,4 +15,4 @@ const MainPage = () => {
     );
 }
 
-export default MainPage;
+export default ProfMain;

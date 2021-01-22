@@ -26,7 +26,7 @@ class StudentLogin extends Component{
     .catch(error =>{
       console.log(error)
     })
-    document.location.href = "/main";
+    document.location.href = "/studmain";
     
   }
 

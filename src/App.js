@@ -5,8 +5,9 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/StudentLogin';
 import StudentLogin from './components/StudentLogin';
-import MainPage from './components/MainPage'
+import ProfMain from './components/ProfMain'
 import ProfLogin from './components/ProfLogin';
+import StudMain from './components/StudMain'
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
           <Route path="/register" component={Register}/>
           <Route path="/studlogin" component={StudentLogin}/>
           <Route path="/proflogin" component={ProfLogin}/>
-          <Route path="/main"exact={true} component={MainPage}/>
+          <Route path="/profmain"exact={true} component={ProfMain}/>
+          <Route path="/studmain"exact={true} component={StudMain}/>
           </Switch>
         </BrowserRouter>
     </div>
