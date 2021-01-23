@@ -23,7 +23,6 @@ const Classes = () =>{
         .catch(error =>{
           console.log(error)
         })
-        
       }
     const instructorHandler = (e) =>{
         setInstructor(e.target.value);

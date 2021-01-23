@@ -22,18 +22,20 @@ class ProfLogin extends Component{
 
   submitHandler = (e) =>{
     e.preventDefault();
-    console.log(this.state)
+    if(!this.state.userId || !this.state.userPassword) return;
     axios.post('http://192.249.18.169:8080/auth/login', this.state)
     .then(res=>{
-        console.log(res)
-        // dispatch(loginSuccess(res.data, username));
-        // const token = res.data.token;
-        // axios.defaults.headers.common["Authorization"] = token;
-        // history.push("/");
+        console.log(res);
+        const {accessToken } = res.token;
+        axios.defaults.headers.common['']
+        res.json();
     })
     .catch(error =>{
       console.log(error)
     })
+    if(res.success){
+
+    }
     document.location.href = "/profmain";
     
   }
