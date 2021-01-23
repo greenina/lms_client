@@ -24,7 +24,13 @@ class ProfLogin extends Component{
     e.preventDefault();
     console.log(this.state)
     axios.post('http://192.249.18.169:8080/auth/login', this.state)
-    .then(response=>{console.log(response)})
+    .then(res=>{
+        console.log(res)
+        // dispatch(loginSuccess(res.data, username));
+        // const token = res.data.token;
+        // axios.defaults.headers.common["Authorization"] = token;
+        // history.push("/");
+    })
     .catch(error =>{
       console.log(error)
     })
