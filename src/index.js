@@ -8,12 +8,14 @@ import { createStore } from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
 const INIT_STATE = {
-  jwt: 'init'
+  jwt: 'init',
+  userId: 'init'
 };
 
-export const LoginSuccess = (token) => ({
+export const LoginSuccess = (info) => ({
   type: 'LoginSuccess',
-  jwt: token
+  jwt: info.jwt,
+  userId: info.userId
 })
 
 function reducer(state, action) {
@@ -25,7 +27,7 @@ function reducer(state, action) {
       // return Object.assign({}, state, {
       //   jwt: action.jwt
       // }
-      return {...state, jwt: action.jwt};
+      return {...state, jwt: action.jwt, userId: action.userId};
     default:
       return state;
   }
