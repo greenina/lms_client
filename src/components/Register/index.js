@@ -4,7 +4,7 @@ import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {connect} from 'react-redux';
-import {userPostFetch} from '../redux/actions';
+// import {userPostFetch} from '../redux/actions';
 
 
 class Register extends Component{
@@ -23,7 +23,7 @@ class Register extends Component{
   submitHandler = (e) =>{
     e.preventDefault();
     console.log(this.state)
-    this.props.userPostFetch(this.state)
+    // this.props.userPostFetch(this.state)
   }
 
   render(){
@@ -63,9 +63,9 @@ class Register extends Component{
     )
   }
 }
-const mapDispatchToProps = dispatch => ({
-  userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
-})
+// const mapDispatchToProps = dispatch => ({
+//   userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
+// })
 
 
 // export const userPostFetch = user => {
@@ -91,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
 //     payload: userObj
 // })
 
-export default connect(null, mapDispatchToProps)(Register);
+export default Register
