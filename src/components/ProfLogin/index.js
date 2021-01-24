@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import MainPage from '../ProfMain'
 import {Route} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import {LoginSuccess} from '../../index.js';
+import {LoginSuccess, checkIfStudent} from '../../index.js';
 
 function ProfLogin({history}){
 
@@ -22,9 +22,9 @@ function ProfLogin({history}){
       case 'userPassword':
         setUserPassword(e.target.value)
         break;
-      case 'isStudent':
-        setIsStudent(e.target.value)
-        break;
+      // case 'isStudent':
+      //   setIsStudent(e.target.value)
+      //   break;
     }
   }
   var token = useSelector(state =>{return state.jwt})
@@ -39,6 +39,7 @@ function ProfLogin({history}){
       debugger;
       if(res.data.success === true){
         dispatch(LoginSuccess({userId:userId, jwt: res.data.jwt}));
+        dispatch(checkIfStudent(false));
         history.push('/profmain');
       }
       else{

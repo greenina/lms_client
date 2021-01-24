@@ -4,8 +4,10 @@ import './style.css'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {LoginSuccess} from '../../index.js';
+import {LoginSuccess,checkIfStudent, checkUserId} from '../../index.js';
 import {Link} from 'react-router-dom'
+import StudMain from'../StudMain'
+import {Route} from 'react-router-dom'
 
 const StudentLogin = ({history}) => {
 
@@ -36,10 +38,11 @@ const StudentLogin = ({history}) => {
     e.preventDefault();
     //console.log(this.state)
     axios.post('http://192.249.18.169:8080/auth/login', {userId: userId, userPassword: userPassword, isStudent: isStudent})
-    .then(response=>{
-      console.log(response)
-      console.log(response.data.jwt)
-      dispatch(LoginSuccess(response.data.jwt));
+    .then(res=>{
+      console.log(res)
+      console.log(res.data.jwt)
+      dispatch(LoginSuccess({userId:userId, jwt: res.data.jwt}));
+      dispatch(checkIfStudent(true));
       //document.location.href = "/studmain";
       history.push('/studmain');
     })
@@ -53,6 +56,7 @@ const StudentLogin = ({history}) => {
 
     return(
       <div className="recruit">
+        <Route path="/studmain"exact={true} component={StudMain}/>
         <form  onSubmit={submitHandler}  alignItems="center" justify="center">
           <Grid align="center"
                 justify="center"
@@ -75,7 +79,7 @@ const StudentLogin = ({history}) => {
                 <input  onChange={changeHandler} value={userPassword} name="userPassword" className="userPassword-input" type="text"/>
               </Paper>
               
-              <button className = 'submit' onClick={submitHandler}>완료</button>
+              <button className = 'submit' >완료</button>
               
 
             </Grid>
