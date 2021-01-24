@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import Modal from 'react-modal';
 import axios from 'axios';
 
-const Classes = () =>{
+const Classes = (props) =>{
     var [modalState, setModalState] = useState(false);
     var [instructor, setInstructor] = useState();
     var [classId, setClassId] = useState();
@@ -13,7 +13,7 @@ const Classes = () =>{
         console.log(state);
         return state.jwt}
         );
-        
+
     const openModal = () => {
         setModalState(true);
     };

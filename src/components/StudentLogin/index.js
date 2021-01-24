@@ -1,16 +1,21 @@
 import { Component, useState } from 'react';
-import {useDispatch} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import './style.css'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {LoginSuccess} from '../../index.js';
+import {Link} from 'react-router-dom'
 
-const StudentLogin = () => {
+const StudentLogin = ({history}) => {
 
   var [userId, setUserId] = useState();
   var [userPassword, setUserPassword] = useState();
   var [isStudent, setIsStudent] = useState(true);
+  var token = useSelector(state => {
+    console.log(state);
+    return state.jwt}
+    );
 
   const changeHandler =(e)=>{
     switch(e.target.name){
@@ -35,7 +40,8 @@ const StudentLogin = () => {
       console.log(response)
       console.log(response.data.jwt)
       dispatch(LoginSuccess(response.data.jwt));
-      document.location.href = "/studmain";
+      //document.location.href = "/studmain";
+      history.push('/studmain');
     })
     .catch(error =>{
       console.log(error)
@@ -70,6 +76,8 @@ const StudentLogin = () => {
               </Paper>
               
               <button className = 'submit' onClick={submitHandler}>완료</button>
+              
+
             </Grid>
             
           </Grid>
