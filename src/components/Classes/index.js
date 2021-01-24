@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
+import {useSelector} from "react-redux";
 import Modal from 'react-modal';
 import axios from 'axios';
 
-const Classes = () =>{
+const Classes = (props) =>{
     var [modalState, setModalState] = useState(false);
     var [instructor, setInstructor] = useState();
     var [classId, setClassId] = useState();
     var [className, setClassName] = useState();
     var [joinPassword, setJoinPassWord] = useState();
+    var token = useSelector(state => {
+        console.log(state);
+        return state.jwt}
+        );
 
     const openModal = () => {
         setModalState(true);
@@ -17,8 +22,15 @@ const Classes = () =>{
         setModalState(false);
     };
     const submitHandler = (e) =>{
+        
+        console.log(token);
         e.preventDefault();
-        axios.post('http://192.249.18.245:8080/class/create', {instructor:instructor, classId:classId, className:className, joinPassword:joinPassword})
+        axios.post('http://192.249.18.169:8080/class/create', {instructor:instructor, classId:classId, className:className, joinPassword:joinPassword},
+        {
+            headers: {
+                'x-access-token': token
+            }
+        })
         .then(response=>{console.log(response)})
         .catch(error =>{
           console.log(error)

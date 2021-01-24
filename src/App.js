@@ -10,6 +10,7 @@ import ProfLogin from './components/ProfLogin';
 import StudMain from './components/StudMain'
 
 function App() {
+
   return (
     <div>
         <BrowserRouter>
