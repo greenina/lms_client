@@ -12,7 +12,7 @@ function ProfLogin({history}){
 
   const[userId, setUserId] = useState();
   const[userPassword, setUserPassword] = useState();
-  const[isStudent, setIsStudent] = useState(true);
+  const[isStudent, setIsStudent] = useState(false);
 
   const changeHandler = (e)=>{
     switch(e.target.name){
@@ -36,7 +36,9 @@ function ProfLogin({history}){
     axios.post('http://192.249.18.169:8080/auth/login',{userId:userId, userPassword:userPassword, isStudent:isStudent})
     .then(res=>{
       dispatch(LoginSuccess(res.data.jwt));
-      history.push('/profmain')
+      dispatch(isStudent(false));
+      dispatch(userId(userId));
+      history.push('/profmain');
     })
     .catch(error =>{
       console.log(error)

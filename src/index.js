@@ -8,12 +8,24 @@ import { createStore } from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
 const INIT_STATE = {
-  jwt: 'init'
+  jwt: 'init',
+  isStudent:true,
+  userId:''
 };
 
 export const LoginSuccess = (token) => ({
   type: 'LoginSuccess',
   jwt: token
+})
+
+export const checkIfStudent = (_isStudent) => ({
+  type: 'checkIfStudent',
+  isStudent: _isStudent
+})
+
+export const checkUserId = (_userId) => ({
+  type: 'userId',
+  userId: _userId
 })
 
 function reducer(state, action) {
@@ -26,6 +38,10 @@ function reducer(state, action) {
       //   jwt: action.jwt
       // }
       return {...state, jwt: action.jwt};
+    case 'checkIfStudent':
+      return{...state,isStudent:action.isStudent}
+    case 'userId':
+      return{...state, userId:action.userId}
     default:
       return state;
   }
@@ -35,7 +51,7 @@ const store = createStore(reducer, composeWithDevTools());
 
 store.subscribe(()=> {
   console.log(store.getState())
-  debugger;
+  // debugger;
   
 })
 

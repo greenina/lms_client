@@ -8,6 +8,7 @@ import StudentLogin from './components/StudentLogin';
 import ProfMain from './components/ProfMain'
 import ProfLogin from './components/ProfLogin';
 import StudMain from './components/StudMain'
+import ClassPage from './components/ClassPage'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/proflogin" component={ProfLogin}/>
           <Route path="/profmain"exact={true} component={ProfMain}/>
           <Route path="/studmain"exact={true} component={StudMain}/>
+          <Route path="/classpage"exact={true} component={ClassPage}/>
           </Switch>
         </BrowserRouter>
     </div>
