@@ -40,7 +40,8 @@ function ProfLogin({history}){
       if(res.data.success === true){
         dispatch(LoginSuccess({userId:userId, jwt: res.data.jwt}));
         dispatch(checkIfStudent(false));
-        history.push('/profmain');
+        //history.push('/profmain');
+        history.push('/main');
       }
       else{
         alert('login fail');

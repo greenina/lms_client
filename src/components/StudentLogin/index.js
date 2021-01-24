@@ -8,6 +8,7 @@ import {LoginSuccess,checkIfStudent, checkUserId} from '../../index.js';
 import {Link} from 'react-router-dom'
 import StudMain from'../StudMain'
 import {Route} from 'react-router-dom'
+import MainPage from '../MainPage'
 
 const StudentLogin = ({history}) => {
 
@@ -43,8 +44,8 @@ const StudentLogin = ({history}) => {
       console.log(res.data.jwt)
       dispatch(LoginSuccess({userId:userId, jwt: res.data.jwt}));
       dispatch(checkIfStudent(true));
-      //document.location.href = "/studmain";
-      history.push('/studmain');
+      //history.push('/studmain');
+      history.push('/main');
     })
     .catch(error =>{
       console.log(error)
@@ -56,7 +57,7 @@ const StudentLogin = ({history}) => {
 
     return(
       <div className="recruit">
-        <Route path="/studmain"exact={true} component={StudMain}/>
+        <Route path="/main"exact={true} component={MainPage}/>
         <form  onSubmit={submitHandler}  alignItems="center" justify="center">
           <Grid align="center"
                 justify="center"

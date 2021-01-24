@@ -4,7 +4,7 @@ import Classes from '../Classes';
 
 
 
-const ProfMain = () => {
+const MainPage = () => {
     return(
         <div>
             <h1>Professor Main Page</h1>
@@ -15,4 +15,4 @@ const ProfMain = () => {
     );
 }
 
-export default ProfMain;
+export default MainPage;

@@ -9,6 +9,7 @@ import ProfMain from './components/ProfMain'
 import ProfLogin from './components/ProfLogin';
 import StudMain from './components/StudMain'
 import ClassPage from './components/ClassPage'
+import MainPage from './components/MainPage'
 
 function App() {
 
@@ -20,8 +21,9 @@ function App() {
           <Route path="/register" component={Register}/>
           <Route path="/studlogin" component={StudentLogin}/>
           <Route path="/proflogin" component={ProfLogin}/>
-          <Route path="/profmain"exact={true} component={ProfMain}/>
-          <Route path="/studmain"exact={true} component={StudMain}/>
+          {/* <Route path="/profmain"exact={true} component={ProfMain}/>
+          <Route path="/studmain"exact={true} component={StudMain}/> */}
+          <Route path="/main"exact={true} component={MainPage}/>
           <Route path="/classpage"exact={true} component={ClassPage}/>
           </Switch>
         </BrowserRouter>
