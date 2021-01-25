@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import ClassPage from '../ClassPage'
 import {Route} from 'react-router-dom'
+import MultiDatePickerCalendar from './MultiDatePicker/index'
 
 const Classes = ({history}) =>{
     var [modalState, setModalState] = useState(false);
@@ -11,7 +12,7 @@ const Classes = ({history}) =>{
     var [classId, setClassId] = useState();
     var [className, setClassName] = useState();
     var [joinPassword, setJoinPassWord] = useState();
-    var [lectureDate, setLectureDate] = useState();
+    var [lectureDate, setLectureDate] = useState([]);
     var token = useSelector(state => {
         //console.log(state);
         return state.jwt}
@@ -41,6 +42,8 @@ const Classes = ({history}) =>{
         console.log(token)
         // debugger;
         if (!isStudent) {
+            var req ={ userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword };
+            console.log(req);
             axios.post('http://192.249.18.169:8080/class/create', { userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword },
                 {
                     headers: {
@@ -95,11 +98,17 @@ const Classes = ({history}) =>{
             <Modal isOpen={modalState} onRequestClose={closeModal}>
                 {!isStudent?
                 <form onSubmit = {submitHandler}>
-                    <div>lectureDate : <input onChange={function(e){
+                    <div>lectureDate : 
+                    <MultiDatePickerCalendar onChangeDate={function(dates){
+                        setLectureDate(dates);
+                        console.log(lectureDate);
+                    }.bind(this)}></MultiDatePickerCalendar>
+                    {/* <input onChange={function(e){
                         var dateArr = [];
                         dateArr.push(new Date(98,2,24))
                         setLectureDate(dateArr);
-                    }}></input></div>
+                    }}></input> */}
+                    </div>
                     <div>className : <input onChange={classNameHandler}></input></div>
                     <div>joinPassword : <input  onChange={joinPasswordHandler}></input></div>
                     <button type="submit">수업 추가하기</button>
@@ -108,9 +117,11 @@ const Classes = ({history}) =>{
                     <div>className : <input onChange={classNameHandler}></input></div>
                     <div>joinPassword : <input  onChange={joinPasswordHandler}></input></div>
                     <button type="submit">수업 참가하기</button>
-                </form>}
+                </form>
+                }
                 
             </Modal>
+
         </div>
     );
 }
