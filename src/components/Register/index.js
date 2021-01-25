@@ -79,10 +79,9 @@ class Register extends Component{
                 <input  onChange={this.passwordHandler}  name="userPasswordConfirm" className="userPassword-input" type="text"/>
                 {this.state.mode?<div className="green">비밀번호가 일치합니다</div>:<div className="red">비밀번호가 일치하지 않습니다.</div>}
               </Paper>
-              {/* <Paper >
-                <input type="radio">교수</input>
-                <input type="radio">학생</input>
-              </Paper> */}
+              <Paper >
+              <input onClick={this.changeHandler} name="isStudent" type="radio" value = "false"/><span class="up">교수</span>&nbsp;&nbsp; <input onClick={this.changeHandler} value = "true"name="isStudent"type="radio" /> <span class="up">학생</span>
+              </Paper>
 
               <button className = 'submit' onClick={this.submitHandler}>완료</button>
                 {/* <img className = 'submit' src = "/images/apply_button.png" height='50px' onClick={this.submitHandler}></img> */}

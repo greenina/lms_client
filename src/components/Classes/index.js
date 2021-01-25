@@ -4,8 +4,12 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import ClassPage from '../ClassPage'
 import {Route} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
-const Classes = ({history}) =>{
+
+
+const Classes = () =>{
+    const history = useHistory();
     var [modalState, setModalState] = useState(false);
     var [instructor, setInstructor] = useState(useSelector(state => state.userId));
     var [classId, setClassId] = useState();
@@ -115,7 +119,7 @@ const Classes = ({history}) =>{
     return(
         <div>
             <Route path="/classpage"exact={true} component={ClassPage}/>
-            {isStudent?<div>학생 수업 불러오기!!!<div>{classesInfo}111</div></div>
+            {isStudent?<div>학생 수업 불러오기!!!<div>{classesInfo}</div></div>
             :<div></div>}
             <button onClick={openModal} >Add Class</button>
             <Modal isOpen={modalState} onRequestClose={closeModal}>
