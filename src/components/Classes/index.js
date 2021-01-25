@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -41,7 +41,7 @@ const Classes = ({history}) =>{
         console.log(token)
         // debugger;
         if (!isStudent) {
-            axios.post('http://192.249.18.245:8080/class/create', { userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword },
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/class/create`, { userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword },
                 {
                     headers: {
                         'x-access-token': token
@@ -53,7 +53,7 @@ const Classes = ({history}) =>{
                 })
         }
         else{
-            axios.post('http://192.249.18.245:8080/class/join', {userId:userId,joinPassword:joinPassword,className:className},
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/class/join`, {userId:userId,joinPassword:joinPassword,className:className},
             {
                 headers: {
                     'x-access-token': token
@@ -76,7 +76,7 @@ const Classes = ({history}) =>{
       }
     var classes = [];
     var classesInfo = [];
-    axios.post('http://192.249.18.245:8080/class/get',{isStudent:isStudent,userId:userId},{
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/class/get`,{isStudent:isStudent,userId:userId},{
         headers: {
             'x-access-token': token
         }
