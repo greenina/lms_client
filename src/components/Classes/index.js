@@ -6,7 +6,12 @@ import ClassPage from '../ClassPage'
 import {Route} from 'react-router-dom'
 import {useHistory} from 'react-router-dom'
 
-
+const ClassInfo = (props) =>{
+    const classes = props.classes;
+    const classList = classes.map(element =><div>11121<li key={element[0].className}>{element[0].className},{element[0].instructor}</li></div>)
+    console.log("props",props.classes)
+    return(<ul>{classList}</ul>)
+}
 
 const Classes = () =>{
     const history = useHistory();
@@ -79,7 +84,7 @@ const Classes = () =>{
         }
       }
     var classes = [];
-    var classesInfo = [];
+    //var classesInfo = [];
     axios.post('http://192.249.18.245:8080/class/get',{isStudent:isStudent,userId:userId},{
         headers: {
             'x-access-token': token
@@ -92,8 +97,11 @@ const Classes = () =>{
             //console.log(res.data.classes)
             console.log(classes)
             classes.forEach(element =>{
-                classesInfo.push(<div>{element.className},{element.instructor}</div>)
+                console.log("classes",classes)
+                console.log("element",element[0].className)
+                //classesInfo.push(<div>{element[0].className},{element[0].instructor}</div>)
             })
+            //classesInfo = classes.map(element => <li key = {element[0].className}>{element[0].className},{element[0].instructor}</li>)
         }
         else{console.log(res.data.msg)}
     })
@@ -119,7 +127,7 @@ const Classes = () =>{
     return(
         <div>
             <Route path="/classpage"exact={true} component={ClassPage}/>
-            {isStudent?<div>학생 수업 불러오기!!!<div>{classesInfo}</div></div>
+        {isStudent?<div>학생 수업 불러오기!!!<ClassInfo classes={classes}/></div>
             :<div></div>}
             <button onClick={openModal} >Add Class</button>
             <Modal isOpen={modalState} onRequestClose={closeModal}>
@@ -139,7 +147,6 @@ const Classes = () =>{
                     <div>joinPassword : <input  onChange={joinPasswordHandler}></input></div>
                     <button type="submit">수업 참가하기</button>
                 </form>}
-                
             </Modal>
         </div>
     );
