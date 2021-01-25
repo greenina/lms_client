@@ -3,8 +3,7 @@ import './style.css'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {connect} from 'react-redux';
-// import {userPostFetch} from '../redux/actions';
+import {useAlert} from 'react-alert'; 
 
 
 class Register extends Component{
@@ -13,7 +12,8 @@ class Register extends Component{
     this.state={
       userId:'',
       userPassword :'',
-      isStudent :false
+      isStudent :false,
+      mode:false
     }
   }
   changeHandler =(e)=>{
@@ -21,10 +21,32 @@ class Register extends Component{
   }
 
   submitHandler = (e) =>{
-    e.preventDefault();
+    if(this.state.mode){
+      e.preventDefault();
     console.log(this.state)
-    // this.props.userPostFetch(this.state)
+    axios.post('http://192.249.18.245:8080/auth/register', this.state)
+    .then(response=>{console.log(response)})
+    .catch(error =>{
+      console.log(error)
+    })
+    alert('회원가입에 성공하셨습니다.')
+    }
+    else{
+      alert('비밀번호가 일치하지 않습니다')
+    }
+    
+
   }
+  passwordHandler = (e) =>{
+    e.preventDefault();
+    if(this.state.userPassword === e.target.value){
+      this.setState({mode:true})
+    }else{
+      this.setState({mode:false})
+    }
+  }
+
+  
 
   render(){
     const{userId, userPassword} = this.state
@@ -45,17 +67,26 @@ class Register extends Component{
               </Paper>
               <div className="blank1"></div>
               <Paper >
-              <div  align="left" className="userid">아이디</div>
+              <div  align="left" className="userid">id</div>
                 <input  onChange={this.changeHandler} value={userId} name="userId" className="userid-input" type="text"/>
               </Paper>
               <Paper >
-              <div  align="left" className="userid">비밀번호</div>
+              <div  align="left" className="userid">password</div>
                 <input  onChange={this.changeHandler} value={userPassword} name="userPassword" className="userPassword-input" type="text"/>
               </Paper>
-              
+              <Paper >
+                <div  align="left" className="userid">confirm password</div>
+                <input  onChange={this.passwordHandler}  name="userPasswordConfirm" className="userPassword-input" type="text"/>
+                {this.state.mode?<div className="green">비밀번호가 일치합니다</div>:<div className="red">비밀번호가 일치하지 않습니다.</div>}
+              </Paper>
+              <Paper >
+              <input onClick={this.changeHandler} name="isStudent" type="radio" value = "false"/><span class="up">교수</span>&nbsp;&nbsp; <input onClick={this.changeHandler} value = "true"name="isStudent"type="radio" /> <span class="up">학생</span>
+              </Paper>
+
               <button className = 'submit' onClick={this.submitHandler}>완료</button>
+                {/* <img className = 'submit' src = "/images/apply_button.png" height='50px' onClick={this.submitHandler}></img> */}
             </Grid>
-            
+
           </Grid>
 
         </form>
@@ -63,32 +94,5 @@ class Register extends Component{
     )
   }
 }
-// const mapDispatchToProps = dispatch => ({
-//   userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
-// })
 
-
-// export const userPostFetch = user => {
-//   return dispatch => {
-//     return axios.post('http://192.249.18.169:8080/auth/register', this.state)
-//     .then(response=>{
-//       response.json()
-//     })
-//     .then(data =>{
-//       localStorage.setItem("token", data.token);
-//       dispatch(loginUser(data.user))
-//       console.log(localStorage.token)
-//     }
-//     )
-//     .catch(error =>{
-//       console.log(error)
-//     })
-//   }
-// }
-
-// const loginUser = userObj => ({
-//     type: 'LOGIN_USER',
-//     payload: userObj
-// })
-
-export default Register
+export default Register; 
