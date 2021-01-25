@@ -22,12 +22,37 @@ const ClassPage = (props) => {
         setModalState(false);
     };
 
+    // const onChange = e => {
+    //     setContent(e.target.files[0]);
+    //   };
+
+    const onSubmit = e => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("lecturenote", e.target.lecture_note.files[0]); 
+        axios
+          .post("http://192.249.18.169:8080/class/upload", formData, {
+            headers: {
+                'x-access-token': token
+            }
+        })
+          .then(res => {
+            // const { fileName } = res.data;
+            // console.log(fileName);
+            // setUploadedImg({ fileName, filePath: `${BASE_URL}/img/${fileName}` });
+            alert("The file is successfully uploaded");
+          })
+          .catch(err => {
+            console.error(err);
+          });
+    };
+
     return(<div>
         <p>ClassPage</p>
         <button onClick={openModal} >Add Class</button>
         <Modal isOpen={modalState} onRequestClose={closeModal}>
                 <form onSubmit = {function(e){
-                    var req = { assignmentName: e.target.assignmentNameBlank.value, openTime: openTime.toLocaleString(), endTime: endTime.toLocaleString(), instruction: e.target.instructionBlank.value };
+                    var req = { assignmentName: e.target.assignmentNameBlank.value, openTime: openTime, endTime: endTime, instruction: e.target.instructionBlank.value };
                     console.log(req);
                     axios.post('http://192.249.18.169:8080/class/assignment/create?classId='+props.classId, req,
                     {
@@ -60,8 +85,12 @@ const ClassPage = (props) => {
                         
                     }}></input></div>
                     <button type="submit">과제 추가하기</button>
-                </form> 
+                </form>
             </Modal>
+            <form onSubmit={onSubmit}>
+            <button type="submit" >Upload lecture</button>
+            <input type="file" name='lecture_note'/>
+            </form>
     </div>);
 }
 

@@ -3,7 +3,6 @@ import './style.css'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {useAlert} from 'react-alert'; 
 
 
 class Register extends Component{
@@ -24,7 +23,7 @@ class Register extends Component{
     if(this.state.mode){
       e.preventDefault();
     console.log(this.state)
-    axios.post('http://192.249.18.245:8080/auth/register', this.state)
+    axios.post('http://192.249.18.169:8080/auth/register', this.state)
     .then(response=>{console.log(response)})
     .catch(error =>{
       console.log(error)
