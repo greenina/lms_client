@@ -24,6 +24,7 @@ const SubmitAssignment = () => {
 
     const useridChangeHandler = (e) => {
         e.preventDefault();
+        console.log("change userid")
         setUserId(e.target.value);
     }
 
@@ -37,17 +38,18 @@ const SubmitAssignment = () => {
         e.preventDefault();
         console.log("submitting assignment");
         const formData = new FormData();
+                //add userid 
         formData.append(
-            "assignment", selectedFile
+            "userId", userId
         )
         formData.append(
             "assignmentId", assignmentId
         )
-
-        //add userid 
         formData.append(
-            "userId", userId
+            "assignment", selectedFile
         )
+
+
         console.log(selectedFile);
 
         const submitURL = `http://192.249.18.169:8080/class/assignment/submit?classId=`;
