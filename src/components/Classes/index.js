@@ -11,6 +11,7 @@ import ClassItem from '../ClassItem'
 
 const Classes = () =>{
     const history = useHistory();
+    var dispatch = useDispatch();
     var [modalState, setModalState] = useState(false);
     var [instructor, setInstructor] = useState(useSelector(state => state.userId));
     var [classId, setClassId] = useState();
@@ -44,8 +45,6 @@ const Classes = () =>{
 
     const submitHandler = (e) =>{
         e.preventDefault();
-        console.log("isStudent",isStudent)
-        console.log(token)
         // debugger;
         if (!isStudent) {
             var req ={ userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword };
@@ -68,8 +67,7 @@ const Classes = () =>{
                     'x-access-token': token
                 }
             })
-            .then(response=>{
-                console.log(response)
+            .then((response)=>{
                 if(!response.data.success){
                     history.push('/classpage');
                 }else{
@@ -84,16 +82,16 @@ const Classes = () =>{
         }
       }
     //var classesInfo = [];
-    const getDatafromServer = async() =>{
-        var res = await  axios.post('http://192.249.18.203:8080/class/get',{isStudent:isStudent,userId:userId},{
+    const getDatafromServer = async () =>{
+        var res = await axios.post('http://192.249.18.203:8080/class/get',{isStudent:isStudent,userId:userId},{
             headers: {
                 'x-access-token': token
             }
         }) 
-        var classes = [];
-        classes.push(res.data.classes);
-        console.log(classes[0][0].className)
-        var info = classes.map(element => <ClassItem className={element[0].className} instructor = {element[0].instructor}/>)
+        var classes = res.data.classes;
+        console.log(classes)
+        //console.log(classes[0][0].className)
+        var info = classes.map(element => <ClassItem className={element.className} instructor = {element.instructor} classId = {element.classId}/>)
         setClassesInfo(info);
         return info;
     }
@@ -124,7 +122,7 @@ const Classes = () =>{
         <div>
             <Route path="/classpage"exact={true} component={ClassPage}/>
         {isStudent?<div>수업 목록{classesInfo}</div>
-            :<div></div>}
+            :<div>수업 목록{classesInfo}</div>}
             <button onClick={openModal} >Add Class</button>
             <Modal isOpen={modalState} onRequestClose={closeModal}>
                 {!isStudent?

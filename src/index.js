@@ -10,7 +10,15 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 const INIT_STATE = {
   jwt: 'init',
   isStudent:true,
-  userId:''
+  userId:'',
+  class: {
+    classId: '',
+    className: '',
+    lectureDates: '',
+    notices:'',
+    lectureContents:'',
+    assignments: ''
+  }
 };
 
 export const LoginSuccess = (info) => ({
@@ -24,6 +32,10 @@ export const checkIfStudent = (_isStudent) => ({
   isStudent: _isStudent
 })
 
+export const enterClass = (_classId) => ({
+  type: 'enterClass',
+  classId: _classId
+})
 
 
 function reducer(state, action) {
@@ -38,7 +50,9 @@ function reducer(state, action) {
       return {...state, jwt: action.jwt, userId: action.userId};
     case 'checkIfStudent':
       return{...state,isStudent:action.isStudent}
-    
+    case 'enterClass':
+      var _class = {...(state.class), classId:action.classId};
+      return{...state, class: _class}
     default:
       return state;
   }

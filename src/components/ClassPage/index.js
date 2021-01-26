@@ -1,17 +1,50 @@
-import React, { useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import DateTimePicker from 'react-datetime-picker';
 import Modal from 'react-modal';
 import axios from 'axios';
+import {LectureItem} from '../ClassItem'
 
 const ClassPage = (props) => {
     var [modalState, setModalState] = useState(false);
     var [openTime, setOpenTime] = useState(new Date());
     var [endTime, setEndTime] = useState(new Date());
+    var [lecturesInfo, setLecturesInfo] = useState();
     var token = useSelector(state => {
         //console.log(state);
         return state.jwt}
     );
+    var classId = useSelector(state => {
+        console.log(state.class.classId);
+        return state.class.classId}
+    );
+
+    useEffect(()=>{
+        debugger;
+        getDatafromServer();
+    },[])
+
+    const getDatafromServer = async () =>{
+        var res = await axios.post('http://192.249.18.203:8080/class/info',  {classId: classId}, {
+            headers: {
+                'x-access-token': token
+            },
+            params: {
+                classId: classId
+            }
+        })
+        
+        var classInfo = res.data.classInfo;
+        var dates = res.data.classInfo.dates.sort((a,b) => {
+            return new Date(a.scheduled_for).getTime() - 
+                new Date(b.scheduled_for).getTime()
+        });
+
+        //console.log(classes[0][0].className)
+        var info = dates.map(element => <LectureItem lectureDate = {element}/>)
+        setLecturesInfo(info);
+        return info;
+    }
 
     const openModal = () => {
         setModalState(true);
@@ -49,12 +82,14 @@ const ClassPage = (props) => {
 
     return(<div>
         <p>ClassPage</p>
-        <button onClick={openModal} >Add Class</button>
+        <button onClick={openModal} >Add assignment</button>
         <Modal isOpen={modalState} onRequestClose={closeModal}>
                 <form onSubmit = {function(e){
+                    e.preventDefault();
                     var req = { assignmentName: e.target.assignmentNameBlank.value, openTime: openTime, endTime: endTime, instruction: e.target.instructionBlank.value };
                     console.log(req);
-                    axios.post('http://192.249.18.203:8080/class/assignment/create?classId='+props.classId, req,
+                    //debugger;
+                    axios.post('http://192.249.18.203:8080/class/assignment/create?classId='+classId, req,
                     {
                         headers: {
                             'x-access-token': token
@@ -91,6 +126,7 @@ const ClassPage = (props) => {
             <button type="submit" >Upload lecture</button>
             <input type="file" name='lecture_note'/>
             </form>
+            {lecturesInfo}
     </div>);
 }
 
