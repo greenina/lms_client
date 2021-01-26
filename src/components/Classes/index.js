@@ -7,6 +7,7 @@ import {Route} from 'react-router-dom'
 import MultiDatePickerCalendar from './MultiDatePicker/index'
 import {useHistory} from 'react-router-dom'
 import { useAsync } from 'react-async';
+import ClassItem from '../ClassItem'
 
 const Classes = () =>{
     const history = useHistory();
@@ -89,11 +90,18 @@ const Classes = () =>{
                 'x-access-token': token
             }
         }) 
+<<<<<<< HEAD
         var classes = res.data.classes
         //classes.push(res.data.classes);
         console.log(classes);
         //console.log(classes[0].className)
         var info = classes.map(element => <li key = {element.className}>{element.className},{element.instructor}</li>)
+=======
+        var classes = [];
+        classes.push(res.data.classes);
+        console.log(classes[0][0].className)
+        var info = classes.map(element => <ClassItem className={element[0].className} instructor = {element[0].instructor}/>)
+>>>>>>> inhwa
         setClassesInfo(info);
         return info;
     }
@@ -123,7 +131,7 @@ const Classes = () =>{
     return(
         <div>
             <Route path="/classpage"exact={true} component={ClassPage}/>
-        {isStudent?<div>학생 수업 불러오기!!!{classesInfo}</div>
+        {isStudent?<div>수업 목록{classesInfo}</div>
             :<div></div>}
             <button onClick={openModal} >Add Class</button>
             <Modal isOpen={modalState} onRequestClose={closeModal}>
