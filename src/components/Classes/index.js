@@ -89,11 +89,11 @@ const Classes = () =>{
                 'x-access-token': token
             }
         }) 
-        var classes = [];
-        classes.push(res.data.classes);
+        var classes = res.data.classes
+        //classes.push(res.data.classes);
         console.log(classes);
-        console.log(classes[0][0].className)
-        var info = classes.map(element => <li key = {element[0].className}>{element[0].className},{element[0].instructor}</li>)
+        //console.log(classes[0].className)
+        var info = classes.map(element => <li key = {element.className}>{element.className},{element.instructor}</li>)
         setClassesInfo(info);
         return info;
     }
