@@ -87,10 +87,12 @@ const Classes = () =>{
                 'x-access-token': token
             }
         }) 
-        var classes = [];
-        classes.push(res.data.classes);
-        console.log(classes[0][0].className)
-        var info = classes.map(element => <ClassItem className={element[0].className} instructor = {element[0].instructor}/>)
+        //var classes = [];
+        var classes = res.data.classes
+        console.log(classes)
+        //classes.push(res.data.classes);
+        //console.log(classes[0].className)
+        var info = classes.map(element => <ClassItem className={element.className} instructor = {element.instructor}/>)
         setClassesInfo(info);
         return info;
     }
@@ -120,8 +122,9 @@ const Classes = () =>{
     return(
         <div>
             <Route path="/classpage"exact={true} component={ClassPage}/>
-        {isStudent?<div>수업 목록{classesInfo}</div>
-            :<div></div>}
+            <div>수업 목록{classesInfo}</div>
+        {/* {isStudent?<div>{classesInfo}</div>
+            :<div></div>} */}
             <button onClick={openModal} >Add Class</button>
             <Modal isOpen={modalState} onRequestClose={closeModal}>
                 {!isStudent?
