@@ -6,6 +6,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import ClassPage from './components/ClassPage'
 import MainPage from './components/MainPage'
+import NoticePage from './components/NoticePage';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/login" component={Login}/>
           <Route path="/main"exact={true} component={MainPage}/>
           <Route path="/classpage"exact={true} component={ClassPage}/>
+          <Route path="/notice" exact={true} component={NoticePage}/>
           </Switch>
         </BrowserRouter>
     </div>
