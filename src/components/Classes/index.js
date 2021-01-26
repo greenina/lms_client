@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -6,13 +6,7 @@ import ClassPage from '../ClassPage'
 import {Route} from 'react-router-dom'
 import MultiDatePickerCalendar from './MultiDatePicker/index'
 import {useHistory} from 'react-router-dom'
-
-const ClassInfo = (props) =>{
-    const classes = props.classes;
-    const classList = classes.map(element =><div>11121<li key={element[0].className}>{element[0].className},{element[0].instructor}</li></div>)
-    console.log("props",props.classes)
-    return(<ul>{classList}</ul>)
-}
+import { useAsync } from 'react-async';
 
 const Classes = () =>{
     const history = useHistory();
@@ -21,7 +15,9 @@ const Classes = () =>{
     var [classId, setClassId] = useState();
     var [className, setClassName] = useState();
     var [joinPassword, setJoinPassWord] = useState();
-    var [lectureDate, setLectureDate] = useState([]);
+    var [lectureDate, setLectureDate] = useState();
+    var [classesInfo, setClassesInfo] = useState();
+
     var token = useSelector(state => {
         //console.log(state);
         return state.jwt}
@@ -86,33 +82,30 @@ const Classes = () =>{
             })
         }
       }
-    var classes = [];
     //var classesInfo = [];
-    axios.post('http://192.249.18.203:8080/class/get',{isStudent:isStudent,userId:userId},{
-        headers: {
-            'x-access-token': token
-        }
-    })
-    .then(res =>{
-        console.log(res)
-        if(res.data.success){
-            classes.push(res.data.classes);
-            //console.log(res.data.classes)
-            console.log(classes)
-            classes.forEach(element =>{
-                console.log("classes",classes)
-                console.log("element",element[0].className)
-                //classesInfo.push(<div>{element[0].className},{element[0].instructor}</div>)
-            })
-            //classesInfo = classes.map(element => <li key = {element[0].className}>{element[0].className},{element[0].instructor}</li>)
-        }
-        else{console.log(res.data.msg)}
-    })
-    .catch(error =>{
-        console.log(error)
+    const getDatafromServer = async() =>{
+        var res = await  axios.post('http://192.249.18.203:8080/class/get',{isStudent:isStudent,userId:userId},{
+            headers: {
+                'x-access-token': token
+            }
+        }) 
+        var classes = [];
+        classes.push(res.data.classes);
+        console.log(classes);
+        console.log(classes[0][0].className)
+        var info = classes.map(element => <li key = {element[0].className}>{element[0].className},{element[0].instructor}</li>)
+        setClassesInfo(info);
+        return info;
+    }
 
-    })
-    //professor's page
+    //var info = useAsync({promiseFn:getDatafromServer})
+    useEffect(()=>{
+        getDatafromServer();
+    },[])
+    
+
+    
+    
     const instructorHandler = (e) =>{
         setInstructor(e.target.value);
     }
@@ -130,7 +123,7 @@ const Classes = () =>{
     return(
         <div>
             <Route path="/classpage"exact={true} component={ClassPage}/>
-        {isStudent?<div>학생 수업 불러오기!!!<ClassInfo classes={classes}/></div>
+        {isStudent?<div>학생 수업 불러오기!!!{classesInfo}</div>
             :<div></div>}
             <button onClick={openModal} >Add Class</button>
             <Modal isOpen={modalState} onRequestClose={closeModal}>
@@ -163,5 +156,7 @@ const Classes = () =>{
         </div>
     );
 }
+
+
 
 export default Classes;
