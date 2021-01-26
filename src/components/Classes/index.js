@@ -90,18 +90,10 @@ const Classes = () =>{
                 'x-access-token': token
             }
         }) 
-<<<<<<< HEAD
-        var classes = res.data.classes
-        //classes.push(res.data.classes);
-        console.log(classes);
-        //console.log(classes[0].className)
-        var info = classes.map(element => <li key = {element.className}>{element.className},{element.instructor}</li>)
-=======
         var classes = [];
         classes.push(res.data.classes);
         console.log(classes[0][0].className)
         var info = classes.map(element => <ClassItem className={element[0].className} instructor = {element[0].instructor}/>)
->>>>>>> inhwa
         setClassesInfo(info);
         return info;
     }
