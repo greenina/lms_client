@@ -31,7 +31,7 @@ const ClassPage = (props) => {
         const formData = new FormData();
         formData.append("lecturenote", e.target.lecture_note.files[0]); 
         axios
-          .post("http://192.249.18.169:8080/class/upload", formData, {
+          .post("http://192.249.18.203:8080/class/upload", formData, {
             headers: {
                 'x-access-token': token
             }
@@ -54,7 +54,7 @@ const ClassPage = (props) => {
                 <form onSubmit = {function(e){
                     var req = { assignmentName: e.target.assignmentNameBlank.value, openTime: openTime, endTime: endTime, instruction: e.target.instructionBlank.value };
                     console.log(req);
-                    axios.post('http://192.249.18.169:8080/class/assignment/create?classId='+props.classId, req,
+                    axios.post('http://192.249.18.203:8080/class/assignment/create?classId='+props.classId, req,
                     {
                         headers: {
                             'x-access-token': token
