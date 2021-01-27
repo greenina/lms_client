@@ -11,13 +11,14 @@ const QuizPage = () => {
     const userId = location.state.userId;
     const classId = location.state.classId;
     const today = new Date();
+    var temp = new Date(today.setDate(today.getDate() + 7))
 
     var [quizName, setQuizName] = useState('');
     var [quizContent, setQuizContent] = useState('');
     var [quizUrl, setQuizUrl] = useState('');
     var [quizList, setQuizList] = useState([]);
     var [openTime, setOpenTime] = useState(new Date());
-    var [endTime, setEndTime] = useState(new Date());
+    var [endTime, setEndTime] = useState(temp);
     var [submit, setSubmit] = useState(false);
 
     var token = useSelector(state => {
