@@ -1,57 +1,59 @@
 import { Component, useState } from 'react';
+import {useSelector, useDispatch} from "react-redux";
 import './style.css'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import MainPage from '../MainPage'
-import {Route} from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux';
-import {LoginSuccess, checkIfStudent} from '../../redux/auth/auth.actions';
+import {LoginSuccess} from '../../redux/auth/auth.actions';
+import {Link} from 'react-router-dom';
+require('dotenv').config();
 
-function Login({history}){
+const StudentLogin = ({history}) => {
 
-  const[userId, setUserId] = useState();
-  const[userPassword, setUserPassword] = useState();
+  var [userId, setUserId] = useState();
+  var [userPassword, setUserPassword] = useState();
+  var [isStudent, setIsStudent] = useState(true);
+  var token = useSelector(state => {
+    console.log(state);
+    return state.jwt}
+    );
 
-  const changeHandler = (e)=>{
+  const changeHandler =(e)=>{
     switch(e.target.name){
       case 'userId':
-        setUserId(e.target.value)
+        setUserId(e.target.value);
         break;
       case 'userPassword':
-        setUserPassword(e.target.value)
+        setUserPassword(e.target.value);
+        break;
+      case 'isStudent':
+        setIsStudent(e.target.value);
         break;
     }
+   //this.setState({[e.target.name]:e.target.value})
   }
-  var token = useSelector(state =>{return state.jwt})
-  
-  var dispatch = useDispatch();
 
   const submitHandler = (e) =>{
     e.preventDefault();
-    axios.post('http://192.249.18.245:8080/auth/login',{userId:userId, userPassword:userPassword})
-    .then(res=>{
-      console.log(res)
-      //debugger;
-      if(res.data.success === true){
-        dispatch(LoginSuccess({userId:userId, jwt: res.data.jwt}));
-        dispatch(checkIfStudent(res.data.isStudent));
-        console.log(res.data.isStudent)
-        history.push('/main');
-      }
-      else{
-        alert('login fail');
-      }
-
+    //console.log(this.state)
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {userId: userId, userPassword: userPassword, isStudent: isStudent})
+    .then(response=>{
+      console.log(response)
+      console.log(response.data.jwt)
+      dispatch(LoginSuccess(response.data.jwt));
+      //document.location.href = "/studmain";
+      history.push('/studmain');
     })
     .catch(error =>{
       console.log(error)
     })
+    
   }
 
+  const dispatch = useDispatch();
 
-  return(
-    <div className="recruit">
+    return(
+      <div className="recruit">
         <form  onSubmit={submitHandler}  alignItems="center" justify="center">
           <Grid align="center"
                 justify="center"
@@ -62,7 +64,7 @@ function Login({history}){
             <Grid item xs={5} alignItems="center" justify="center">
               <div className="blank"></div>
               <Paper className="titlePaper" >
-                <div className="apply_title">Login</div>
+                <div className="apply_title">Login {isStudent?"(Student) ":"(Instructor) "}</div>
               </Paper>
               <div className="blank1"></div>
               <Paper >
@@ -83,7 +85,8 @@ function Login({history}){
 
         </form>
       </div>
-  )
+    )
+
 }
 
-export default Login;
+export default StudentLogin;

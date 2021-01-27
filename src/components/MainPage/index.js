@@ -12,8 +12,11 @@ const MainPage = () => {
         <div>
             <h1>{isStudent?"Student":"Instructor"} Main Page</h1>
             캘린더랑 class들
-            <Calender/>
-            <Classes/>
+            <div>
+                <Calender/>
+                <Classes/>
+            </div>
+            
         </div>
     );
 }
