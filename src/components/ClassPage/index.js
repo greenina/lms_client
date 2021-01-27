@@ -4,6 +4,8 @@ import DateTimePicker from 'react-datetime-picker';
 import Modal from 'react-modal';
 import axios from 'axios';
 import {LectureItem} from '../ClassItem'
+import {selectToken, selectIsStudent, selectUserId, selectClassId} from '../../redux/auth/auth.selectors'
+import SubmitAssignment from  '../SubmitAssignment/index'
 
 const ClassPage = (props) => {
     var [modalState, setModalState] = useState(false);
@@ -11,16 +13,16 @@ const ClassPage = (props) => {
     var [endTime, setEndTime] = useState(new Date());
     var [lecturesInfo, setLecturesInfo] = useState();
     var token = useSelector(state => {
-        //console.log(state);
-        return state.jwt}
+        return selectToken(state)}
     );
     var classId = useSelector(state => {
-        console.log(state.class.classId);
-        return state.class.classId}
+        return selectClassId(state)}
     );
 
+    var isStudent = useSelector(state => {
+        return selectIsStudent(state)
+    })
     useEffect(()=>{
-        debugger;
         getDatafromServer();
     },[])
 
@@ -35,13 +37,21 @@ const ClassPage = (props) => {
         })
         
         var classInfo = res.data.classInfo;
+        console.log(classInfo);
         var dates = res.data.classInfo.dates.sort((a,b) => {
             return new Date(a.scheduled_for).getTime() - 
                 new Date(b.scheduled_for).getTime()
         });
-
-        //console.log(classes[0][0].className)
-        var info = dates.map(element => <LectureItem lectureDate = {element}/>)
+        
+        var lectures = res.data.classInfo.lectures;
+        console.log(lectures)
+        debugger
+        var info = dates.map(element => <LectureItem lectureDate = {element} lectures = {lectures.filter((lecture) => {
+            if((new Date(lecture.lectureDate)).getTime() === new Date(element).getTime())
+                return true;
+            else
+                return false;
+        })}/>)
         setLecturesInfo(info);
         return info;
     }
@@ -58,27 +68,6 @@ const ClassPage = (props) => {
     // const onChange = e => {
     //     setContent(e.target.files[0]);
     //   };
-
-    const onSubmit = e => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("lecturenote", e.target.lecture_note.files[0]); 
-        axios
-          .post("http://192.249.18.203:8080/class/upload", formData, {
-            headers: {
-                'x-access-token': token
-            }
-        })
-          .then(res => {
-            // const { fileName } = res.data;
-            // console.log(fileName);
-            // setUploadedImg({ fileName, filePath: `${BASE_URL}/img/${fileName}` });
-            alert("The file is successfully uploaded");
-          })
-          .catch(err => {
-            console.error(err);
-          });
-    };
 
     return(<div>
         <p>ClassPage</p>
@@ -107,7 +96,6 @@ const ClassPage = (props) => {
                         {/* <input name = 'openTimeBlank' onChange={function(){
                     }}></input> */}
                     <DateTimePicker onChange={(date)=>{setOpenTime(date)
-                    console.log(date)
                     }} value={openTime} disableClock={true}/>
                     </div>
                     <div>endTime :
@@ -122,11 +110,9 @@ const ClassPage = (props) => {
                     <button type="submit">과제 추가하기</button>
                 </form>
             </Modal>
-            <form onSubmit={onSubmit}>
-            <button type="submit" >Upload lecture</button>
-            <input type="file" name='lecture_note'/>
-            </form>
             {lecturesInfo}
+            <p>Assignment</p>
+            {isStudent?<SubmitAssignment/>:<div></div>}
     </div>);
 }
 

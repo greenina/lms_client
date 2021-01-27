@@ -4,74 +4,32 @@ import { Provider } from "react-redux";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import {composeWithDevTools} from 'redux-devtools-extension';
-
-const INIT_STATE = {
-  jwt: 'init',
-  isStudent:true,
-  userId:'',
-  class: {
-    classId: '',
-    className: '',
-    lectureDates: '',
-    notices:'',
-    lectureContents:'',
-    assignments: ''
-  }
-};
-
-export const LoginSuccess = (info) => ({
-  type: 'LoginSuccess',
-  jwt: info.jwt,
-  userId: info.userId
-})
-
-export const checkIfStudent = (_isStudent) => ({
-  type: 'checkIfStudent',
-  isStudent: _isStudent
-})
-
-export const enterClass = (_classId) => ({
-  type: 'enterClass',
-  classId: _classId
-})
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from './redux/store';
 
 
-function reducer(state, action) {
-  if(state === undefined)
-    state = INIT_STATE;
 
-  switch(action.type){
-    case 'LoginSuccess':
-      // return Object.assign({}, state, {
-      //   jwt: action.jwt
-      // }
-      return {...state, jwt: action.jwt, userId: action.userId};
-    case 'checkIfStudent':
-      return{...state,isStudent:action.isStudent}
-    case 'enterClass':
-      var _class = {...(state.class), classId:action.classId};
-      return{...state, class: _class}
-    default:
-      return state;
-  }
-}
+//const store = createStore(reducer, composeWithDevTools());
 
-const store = createStore(reducer, composeWithDevTools());
 
 store.subscribe(()=> {
   console.log(store.getState())
   // debugger;
-  
 })
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>
-    <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
+  ,
   document.getElementById('root')
 );
 

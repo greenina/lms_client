@@ -6,7 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import MainPage from '../MainPage'
 import {Route} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import {LoginSuccess, checkIfStudent} from '../../index.js';
+import {LoginSuccess, checkIfStudent} from '../../redux/auth/auth.actions';
+import { selectToken } from '../../redux/auth/auth.selectors';
 
 function Login({history}){
 
@@ -23,7 +24,7 @@ function Login({history}){
         break;
     }
   }
-  var token = useSelector(state =>{return state.jwt})
+  var token = useSelector(state =>selectToken(state))
   
   var dispatch = useDispatch();
 
@@ -36,7 +37,6 @@ function Login({history}){
       if(res.data.success === true){
         dispatch(LoginSuccess({userId:userId, jwt: res.data.jwt}));
         dispatch(checkIfStudent(res.data.isStudent));
-        console.log(res.data.isStudent)
         history.push('/main');
       }
       else{

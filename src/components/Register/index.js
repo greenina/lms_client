@@ -3,6 +3,7 @@ import './style.css'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import {useAlert} from 'react-alert'; 
 
 
 class Register extends Component{
@@ -22,13 +23,13 @@ class Register extends Component{
   submitHandler = (e) =>{
     if(this.state.mode){
       e.preventDefault();
-    console.log(this.state)
     axios.post('http://192.249.18.203:8080/auth/register', this.state)
     .then(response=>{console.log(response)})
     .catch(error =>{
       console.log(error)
     })
     alert('회원가입에 성공하셨습니다.')
+    //document.location.href('/login')
     }
     else{
       alert('비밀번호가 일치하지 않습니다')

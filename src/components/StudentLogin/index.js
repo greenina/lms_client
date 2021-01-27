@@ -4,8 +4,9 @@ import './style.css'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {LoginSuccess} from '../../index.js';
+import {LoginSuccess} from '../../redux/auth/auth.actions';
 import {Link} from 'react-router-dom';
+import { selectToken } from '../../redux/auth/auth.selectors';
 require('dotenv').config();
 
 const StudentLogin = ({history}) => {
@@ -14,8 +15,7 @@ const StudentLogin = ({history}) => {
   var [userPassword, setUserPassword] = useState();
   var [isStudent, setIsStudent] = useState(true);
   var token = useSelector(state => {
-    console.log(state);
-    return state.jwt}
+    return selectToken(state)}
     );
 
   const changeHandler =(e)=>{
@@ -35,11 +35,8 @@ const StudentLogin = ({history}) => {
 
   const submitHandler = (e) =>{
     e.preventDefault();
-    //console.log(this.state)
     axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {userId: userId, userPassword: userPassword, isStudent: isStudent})
     .then(response=>{
-      console.log(response)
-      console.log(response.data.jwt)
       dispatch(LoginSuccess(response.data.jwt));
       //document.location.href = "/studmain";
       history.push('/studmain');

@@ -8,12 +8,13 @@ import MultiDatePickerCalendar from './MultiDatePicker/index'
 import {useHistory} from 'react-router-dom'
 import { useAsync } from 'react-async';
 import ClassItem from '../ClassItem'
+import {selectToken, selectIsStudent, selectUserId} from '../../redux/auth/auth.selectors'
 
 const Classes = () =>{
     const history = useHistory();
     var dispatch = useDispatch();
     var [modalState, setModalState] = useState(false);
-    var [instructor, setInstructor] = useState(useSelector(state => state.userId));
+    var [instructor, setInstructor] = useState(useSelector(state =>selectUserId(state)));
     var [classId, setClassId] = useState();
     var [className, setClassName] = useState();
     var [joinPassword, setJoinPassWord] = useState();
@@ -21,17 +22,14 @@ const Classes = () =>{
     var [classesInfo, setClassesInfo] = useState();
 
     var token = useSelector(state => {
-        //console.log(state);
-        return state.jwt}
+        return selectToken(state)}
     );
     var isStudent = useSelector(state => {
-        console.log(state);
-        return state.isStudent}
+        return selectIsStudent(state)}
     );
 
     var userId = useSelector(state => {
-        //console.log(state);
-        return state.userId}
+        return selectUserId(state)}
     );
 
     const openModal = () => {
@@ -48,7 +46,6 @@ const Classes = () =>{
         // debugger;
         if (!isStudent) {
             var req ={ userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword };
-            console.log(req);
             axios.post('http://192.249.18.203:8080/class/create', { userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword },
                 {
                     headers: {
@@ -89,8 +86,6 @@ const Classes = () =>{
             }
         }) 
         var classes = res.data.classes;
-        console.log(classes)
-        //console.log(classes[0][0].className)
         var info = classes.map(element => <ClassItem className={element.className} instructor = {element.instructor} classId = {element.classId}/>)
         setClassesInfo(info);
         return info;
@@ -130,7 +125,6 @@ const Classes = () =>{
                     <div>lectureDate : 
                     <MultiDatePickerCalendar onChangeDate={function(dates){
                         setLectureDate(dates);
-                        console.log(lectureDate);
                     }.bind(this)}></MultiDatePickerCalendar>
                     {/* <input onChange={function(e){
                         var dateArr = [];

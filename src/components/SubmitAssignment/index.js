@@ -26,31 +26,26 @@ const SubmitAssignment = () => {
     const fileSelector = (e) => {
         e.preventDefault();
         const files = e.target.files[0];
-        console.log(files);
         setSelectedFile(files);
     }
 
     const classidChangeHandler = (e) => {
         e.preventDefault();
-        console.log("change classid")
         setClassId(e.target.value);
     }
 
     const useridChangeHandler = (e) => {
         e.preventDefault();
-        console.log("change userid")
         setUserId(e.target.value);
     }
 
     const assignmentidChangeHandler = (e) => {
         e.preventDefault();
-        console.log("change assignmentid")
         setAssignmentId(e.target.value);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("submitting assignment");
         const formData = new FormData();
                 //add userid 
         formData.append(
@@ -63,18 +58,13 @@ const SubmitAssignment = () => {
             "assignment", selectedFile
         )
 
-
-        console.log(selectedFile);
-
         const submitURL = `http://192.249.18.203:8080/class/assignment/submit?classId=`;
 
         axios.post(submitURL+classId, formData)
             .then((res) => {
-                console.log("get response");
                 console.log(res);
             })
             .catch((err) => {
-                console.log("errrrrrrrrrrrrrrrrrrrrrrrr");
                 console.log(err);
             })
         setSubmit(!submit);
@@ -104,7 +94,7 @@ const SubmitAssignment = () => {
                         <input type="text" name="userId" onChange={useridChangeHandler} value="jinho123"/>
                     </label>
                     <br/>
-                    <button text="Submit" onClick={handleSubmit}/>
+                    <button text="Submit" onClick={handleSubmit}>Submit</button>
                 </form>
     
                 <br/>

@@ -12,11 +12,8 @@ const HistoryList = ( {assignmentList} ) => {
     }
 
     const loadList = () => {
-        console.log("hello world!!")
-        console.log(assignmentList);
         let i = 0;
         return assignmentList.map((submit) => {
-            console.log(submit.lastSubmitTime)
             i = i + 1;
             return <li key={i}>{submit.fileName} {submit.lastSubmitTime}  <button onClick={() => downloadAssignment(submit.fileName, submit.lastSubmitTime)}/> </li>
         })
