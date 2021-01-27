@@ -1,19 +1,18 @@
-import React, { Component, useEffect, useState } from 'react'
-import {useSelector, useDispatch} from "react-redux";
+import React, { useEffect, useState } from 'react'
+import {useSelector} from "react-redux";
 import Modal from 'react-modal';
 import axios from 'axios';
 import ClassPage from '../ClassPage'
 import {Route} from 'react-router-dom'
 import MultiDatePickerCalendar from './MultiDatePicker/index'
 import {useHistory} from 'react-router-dom'
-import { useAsync } from 'react-async';
 import ClassItem from '../ClassItem'
 import {selectToken, selectIsStudent, selectUserId} from '../../redux/auth/auth.selectors'
 
 const Classes = () =>{
     const history = useHistory();
     var [modalState, setModalState] = useState(false);
-    var [instructor, setInstructor] = useState(useSelector(state =>state.userId));
+    var [instructor, setInstructor] = useState(useSelector(state =>selectUserId(state)));
     var [classId, setClassId] = useState();
     var [className, setClassName] = useState();
     var [joinPassword, setJoinPassWord] = useState();
@@ -46,7 +45,6 @@ const Classes = () =>{
         console.log(token)
         // debugger;
         if (!isStudent) {
-            var req ={ userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword };
             axios.post('http://192.249.18.245:8080/class/create', { userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword },
                 {
                     headers: {
@@ -82,7 +80,7 @@ const Classes = () =>{
       }
     //var classesInfo = [];
     const getDatafromServer = async() =>{
-        console.log("userId",userId);
+        //console.log("userId",userId);
         var res = await  axios.post('http://192.249.18.245:8080/class/get',{isStudent:isStudent,userId:userId},{
             headers: {
                 'x-access-token': token
