@@ -17,7 +17,7 @@ const SubmitAssignment = () => {
     }, [submit])
 
     const loadFileHistory = () => {
-        axios.get('http://192.249.18.203:8080/class/assignment/load', {params: {userId: "jinho123", assignmentId: "202101611579916756KaGfrXz2rtklRbFifVOpgVeLcPHFrQ"}})
+        axios.get(`${process.env.REACT_APP_SERVER}/class/assignment/load`, {params: {userId: "jinho123", assignmentId: "202101611579916756KaGfrXz2rtklRbFifVOpgVeLcPHFrQ"}})
             .then(async (data) => {
                 setAssignmentHistory(data.data.history);
             })
@@ -58,7 +58,7 @@ const SubmitAssignment = () => {
             "assignment", selectedFile
         )
 
-        const submitURL = `http://192.249.18.203:8080/class/assignment/submit?classId=`;
+        const submitURL = `${process.env.REACT_APP_SERVER}/class/assignment/submit?classId=`;
 
         axios.post(submitURL+classId, formData)
             .then((res) => {

@@ -2,22 +2,32 @@ import React, { Component, useEffect, useState } from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import DateTimePicker from 'react-datetime-picker';
 import Modal from 'react-modal';
+import {useHistory} from 'react-router';
 import axios from 'axios';
 import {LectureItem} from '../ClassItem'
 import {selectToken, selectIsStudent, selectUserId, selectClassId} from '../../redux/auth/auth.selectors'
 import SubmitAssignment from  '../SubmitAssignment/index'
 
 const ClassPage = (props) => {
+    const history = useHistory();
+
     var [modalState, setModalState] = useState(false);
     var [openTime, setOpenTime] = useState(new Date());
     var [endTime, setEndTime] = useState(new Date());
     var [lecturesInfo, setLecturesInfo] = useState();
+
     var token = useSelector(state => {
         return selectToken(state)}
     );
+
+    
     var classId = useSelector(state => {
         return selectClassId(state)}
     );
+
+    var userId = useSelector(state => {
+        return selectUserId(state)
+    })
 
     var isStudent = useSelector(state => {
         return selectIsStudent(state)
@@ -27,12 +37,13 @@ const ClassPage = (props) => {
     },[])
 
     const getDatafromServer = async () =>{
-        var res = await axios.post('http://192.249.18.203:8080/class/info',  {classId: classId}, {
+        var res = await axios.get(`${process.env.REACT_APP_SERVER}/class/info`, {
             headers: {
                 'x-access-token': token
             },
             params: {
-                classId: classId
+                classId: classId, 
+                userId: userId
             }
         })
         
@@ -45,7 +56,6 @@ const ClassPage = (props) => {
         
         var lectures = res.data.classInfo.lectures;
         console.log(lectures)
-        debugger
         var info = dates.map(element => <LectureItem lectureDate = {element} lectures = {lectures.filter((lecture) => {
             if((new Date(lecture.lectureDate)).getTime() === new Date(element).getTime())
                 return true;
@@ -65,20 +75,33 @@ const ClassPage = (props) => {
         setModalState(false);
     };
 
-    // const onChange = e => {
-    //     setContent(e.target.files[0]);
-    //   };
+    const noticePage = (event) => {
+        event.preventDefault();
+        history.push({
+            pathname: "/main/notice",
+            state: {userId: userId, classId: classId, isStudent: isStudent}
+        })
+    }
+
+    const quizPage = (event) => {
+        event.preventDefault();
+        history.push({
+            pathname: '/main/quiz',
+            state: {userId: userId, classId: classId}
+        })
+    }
 
     return(<div>
         <p>ClassPage</p>
         <button onClick={openModal} >Add assignment</button>
+        <button onClick={quizPage}>See Quiz!!!!!</button>
+        <button onClick={noticePage}>See Notice!!</button>
         <Modal isOpen={modalState} onRequestClose={closeModal}>
                 <form onSubmit = {function(e){
                     e.preventDefault();
                     var req = { assignmentName: e.target.assignmentNameBlank.value, openTime: openTime, endTime: endTime, instruction: e.target.instructionBlank.value };
                     console.log(req);
-                    //debugger;
-                    axios.post('http://192.249.18.203:8080/class/assignment/create?classId='+classId, req,
+                    axios.post(`${process.env.REACT_APP_SERVER}/class/assignment/create?classId=`+classId, req,
                     {
                         headers: {
                             'x-access-token': token

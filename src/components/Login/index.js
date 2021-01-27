@@ -30,11 +30,12 @@ function Login({history}){
 
   const submitHandler = (e) =>{
     e.preventDefault();
-    axios.post('http://192.249.18.203:8080/auth/login',{userId:userId, userPassword:userPassword})
+    axios.post(`${process.env.REACT_APP_SERVER}/auth/login`,{userId:userId, userPassword:userPassword})
     .then(res=>{
       console.log(res)
       //debugger;
       if(res.data.success === true){
+        console.log(userId);
         dispatch(LoginSuccess({userId:userId, jwt: res.data.jwt}));
         dispatch(checkIfStudent(res.data.isStudent));
         history.push('/main');
