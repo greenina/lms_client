@@ -7,6 +7,8 @@ import Login from './components/Login';
 import ClassPage from './components/ClassPage'
 import MainPage from './components/MainPage'
 import SubmitAssignment from './components/SubmitAssignment';
+import NoticePage from './components/NoticePage';
+import QuizPage from './components/QuizPage';
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
           <Route path="/classpage"exact={true} component={ClassPage}/>
           {/* <Route path="/main/assignment/create" exact={true} component={CreateAssignment}/> */}
           <Route path="/main/assignment/submit" exact={true} component={SubmitAssignment}/>
+          <Route path="/main/notice" exact={true} component={NoticePage}/>
+          <Route path="/main/quiz" exact={true} component={QuizPage}/>
           </Switch>
         </BrowserRouter>
     </div>

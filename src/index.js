@@ -10,6 +10,7 @@ import storage from 'redux-persist/lib/storage'
 import {composeWithDevTools} from 'redux-devtools-extension';
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from './redux/store';
+require('dotenv').config();
 
 
 

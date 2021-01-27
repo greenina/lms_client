@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import DateTimePicker from 'react-datetime-picker';
 import Modal from 'react-modal';
+import {useHistory} from 'react-router';
 import axios from 'axios';
 import {LectureItem, AssignmentItem} from '../ClassItem'
 import {selectToken, selectIsStudent, selectUserId, selectClassId, selectClassName} from '../../redux/auth/auth.selectors'
@@ -10,6 +11,8 @@ import { updateClass } from '../../redux/auth/auth.actions';
 
 const ClassPage = (props) => {
     var dispatch = useDispatch();
+    const history = useHistory();
+
     var [modalState, setModalState] = useState(false);
     var [openTime, setOpenTime] = useState(new Date());
     var [endTime, setEndTime] = useState(new Date());
@@ -18,9 +21,15 @@ const ClassPage = (props) => {
     var token = useSelector(state => {
         return selectToken(state)}
     );
+
+    
     var classId = useSelector(state => {
         return selectClassId(state)}
     );
+
+    var userId = useSelector(state => {
+        return selectUserId(state)
+    })
 
     var isStudent = useSelector(state => {
         return selectIsStudent(state)
@@ -33,12 +42,13 @@ const ClassPage = (props) => {
     },[])
 
     const getDatafromServer = async () =>{
-        var res = await axios.post('http://192.249.18.203:8080/class/info',  {classId: classId}, {
+        var res = await axios.get(`http://192.249.18.203:8080/class/info`, {
             headers: {
                 'x-access-token': token
             },
             params: {
-                classId: classId
+                classId: classId, 
+                userId: userId
             }
         })
         
@@ -78,20 +88,33 @@ const ClassPage = (props) => {
         setModalState(false);
     };
 
-    // const onChange = e => {
-    //     setContent(e.target.files[0]);
-    //   };
+    const noticePage = (event) => {
+        event.preventDefault();
+        history.push({
+            pathname: "/main/notice",
+            state: {userId: userId, classId: classId, isStudent: isStudent}
+        })
+    }
+
+    const quizPage = (event) => {
+        event.preventDefault();
+        history.push({
+            pathname: '/main/quiz',
+            state: {userId: userId, classId: classId}
+        })
+    }
 
     return(<div>
         <p>ClassPage <h1>{className}</h1></p>
         <button onClick={openModal} >Add assignment</button>
+        <button onClick={quizPage}>See Quiz!!!!!</button>
+        <button onClick={noticePage}>See Notice!!</button>
         <Modal isOpen={modalState} onRequestClose={closeModal}>
                 <form onSubmit = {function(e){
                     e.preventDefault();
                     var req = { assignmentName: e.target.assignmentNameBlank.value, openTime: openTime, endTime: endTime, instruction: e.target.instructionBlank.value };
                     console.log(req);
-                    //debugger;
-                    axios.post('http://192.249.18.203:8080/class/assignment/create?classId='+classId, req,
+                    axios.post(`http://192.249.18.203:8080/class/assignment/create?classId=`+classId, req,
                     {
                         headers: {
                             'x-access-token': token
@@ -114,7 +137,7 @@ const ClassPage = (props) => {
                     <div>endTime :
                     {/* <input name = 'endTimeBlank' onChange={function(){
                     }}></input> */}
-                    <DateTimePicker onChange={setEndTime} value={endTime} disableClock={true}/>
+                    <DateTimePicker onChange={(date)=>setEndTime(date)} value={endTime} disableClock={true}/>
                     </div>
 
                     <div>instruction : <input name = 'instructionBlank' onChange={function(){
