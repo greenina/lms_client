@@ -10,7 +10,8 @@ const INITIAL_STATE = {
       lectureDates: '',
       notices:'',
       lectureContents:'',
-      assignments: ''
+      assignments: '',
+      students: ''
     }
 };
 
@@ -25,6 +26,15 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return{...state,isStudent:action.isStudent}
     case 'enterClass':
       var _class = { ...(state.class), classId: action.classId };
+      return { ...state, class: _class }
+    case 'updateClass':
+      var _class = { ...(state.class),
+      lectureDates: action.classInfo.dates,
+      notices:action.classInfo.notices,
+      assignments: action.classInfo.assignments,
+      students: action.classInfo.students,
+      className: action.classInfo.className
+      }
       return { ...state, class: _class }
     default:
       return state;

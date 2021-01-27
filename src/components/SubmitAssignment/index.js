@@ -1,47 +1,45 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
+import {useSelector, useDispatch} from "react-redux";
 import axios from 'axios';
 import querystring from 'querystring';
 import HistoryList from './historyList';
+import { selectClassId, selectClassStudents, selectIsStudent, selectUserId } from '../../redux/auth/auth.selectors';
 
-const SubmitAssignment = () => {
-    const today = new Date();
-    const [classId, setClassId] = useState('2021016114775373656fJW1tUH10rVD2j3MQGQeKTU75Hm57oJ1E2a7oEc');
-    const [assignmentId, setAssignmentId] = useState('202101611579916756KaGfrXz2rtklRbFifVOpgVeLcPHFrQ');
+const SubmitAssignment = (props) => {
+    var userId = useSelector(state => selectUserId(state));
+    var classId = useSelector(state => selectClassId(state));
+    var isStudent = useSelector(state => selectIsStudent(state));
+    var students = useSelector(state=> selectClassStudents(state));
     const [selectedFile, setSelectedFile] = useState(null);
-    const [userId, setUserId] = useState('jinho123');
     const [assignmentHistory, setAssignmentHistory] = useState([]);
     const [submit, setSubmit] = useState(false);
+    const [filter, setFilter] = useState(null);
 
     useEffect(() => {
         loadFileHistory();
     }, [submit])
 
     const loadFileHistory = () => {
-        axios.get('http://192.249.18.203:8080/class/assignment/load', {params: {userId: "jinho123", assignmentId: "202101611579916756KaGfrXz2rtklRbFifVOpgVeLcPHFrQ"}})
+        if(isStudent){
+            axios.get('http://192.249.18.203:8080/class/assignment/load', { params: { userId: userId, assignmentId: props.assignmentId } })
+                .then(async (data) => {
+                    console.log(data);
+                    setAssignmentHistory(data.data.history);
+                })
+        }
+        else{
+            axios.get('http://192.249.18.203:8080/class/assignment/loadall', {params: {assignmentId: props.assignmentId}})
             .then(async (data) => {
+                console.log(data);
                 setAssignmentHistory(data.data.history);
             })
+        }
     }
 
     const fileSelector = (e) => {
         e.preventDefault();
         const files = e.target.files[0];
         setSelectedFile(files);
-    }
-
-    const classidChangeHandler = (e) => {
-        e.preventDefault();
-        setClassId(e.target.value);
-    }
-
-    const useridChangeHandler = (e) => {
-        e.preventDefault();
-        setUserId(e.target.value);
-    }
-
-    const assignmentidChangeHandler = (e) => {
-        e.preventDefault();
-        setAssignmentId(e.target.value);
     }
 
     const handleSubmit = (e) => {
@@ -52,7 +50,7 @@ const SubmitAssignment = () => {
             "userId", userId
         )
         formData.append(
-            "assignmentId", assignmentId
+            "assignmentId", props.assignmentId
         )
         formData.append(
             "assignment", selectedFile
@@ -60,7 +58,12 @@ const SubmitAssignment = () => {
 
         const submitURL = `http://192.249.18.203:8080/class/assignment/submit?classId=`;
 
-        axios.post(submitURL+classId, formData)
+        axios.post(submitURL+classId, formData, {
+            params : {
+                classId: classId,
+                userId: userId
+            }
+        })
             .then((res) => {
                 console.log(res);
             })
@@ -69,36 +72,35 @@ const SubmitAssignment = () => {
             })
         setSubmit(!submit);
     } 
+
+    const loadStudents = () => {
+        return students.map((element) => <button onClick = {function(e){
+            e.preventDefault();
+            setFilter(element);
+        }}>{element}</button>)
+    }
         return (
             <div>
                 <h1>Submit Assignment. 학생들을 울려라~~~</h1>
+                <div>{props.assignmentInstruction}</div>
+                {isStudent?
                 <form>
-                    <br/>
-                    <label>
-                        assignmentId
-                        <input type="text" name="assignmentId" onChange={assignmentidChangeHandler} value='202101611579916756KaGfrXz2rtklRbFifVOpgVeLcPHFrQ'/>
-                    </label>
-                    <br/>
-                    <label>
-                        class_id
-                        <input type="text" name="classId" onChange={classidChangeHandler} value='2021016114775373656fJW1tUH10rVD2j3MQGQeKTU75Hm57oJ1E2a7oEc'/>
-                    </label>
                     <br/>
                     <label>
                         <b>과제를 제출하시오~~</b><br/>
                         <input type="file" name="assignment" onChange={fileSelector} multiple/> 
                     </label>
-                    <br/>
-                    <label>
-                        <b>유저아이디는??</b><br/>
-                        <input type="text" name="userId" onChange={useridChangeHandler} value="jinho123"/>
-                    </label>
-                    <br/>
                     <button text="Submit" onClick={handleSubmit}>Submit</button>
-                </form>
-    
+                </form>:
+                <div>
+                        <button onClick={function (e) {
+                            e.preventDefault();
+                            setFilter(null);
+                        }}>all</button>
+                    {loadStudents()}</div>
+                }
                 <br/>
-                <HistoryList assignmentList={assignmentHistory}/>
+                <HistoryList assignmentList={assignmentHistory} filter = {filter}/>
             </div>
             
         )

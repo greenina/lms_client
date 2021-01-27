@@ -3,15 +3,18 @@ import {useSelector, useDispatch} from "react-redux";
 import DateTimePicker from 'react-datetime-picker';
 import Modal from 'react-modal';
 import axios from 'axios';
-import {LectureItem} from '../ClassItem'
-import {selectToken, selectIsStudent, selectUserId, selectClassId} from '../../redux/auth/auth.selectors'
+import {LectureItem, AssignmentItem} from '../ClassItem'
+import {selectToken, selectIsStudent, selectUserId, selectClassId, selectClassName} from '../../redux/auth/auth.selectors'
 import SubmitAssignment from  '../SubmitAssignment/index'
+import { updateClass } from '../../redux/auth/auth.actions';
 
 const ClassPage = (props) => {
+    var dispatch = useDispatch();
     var [modalState, setModalState] = useState(false);
     var [openTime, setOpenTime] = useState(new Date());
     var [endTime, setEndTime] = useState(new Date());
     var [lecturesInfo, setLecturesInfo] = useState();
+    var [assignmentsInfo, setAssignmentsInfo] = useState();
     var token = useSelector(state => {
         return selectToken(state)}
     );
@@ -21,6 +24,9 @@ const ClassPage = (props) => {
 
     var isStudent = useSelector(state => {
         return selectIsStudent(state)
+    })
+    var className = useSelector(state => {
+        return selectClassName(state)
     })
     useEffect(()=>{
         getDatafromServer();
@@ -38,21 +44,28 @@ const ClassPage = (props) => {
         
         var classInfo = res.data.classInfo;
         console.log(classInfo);
+
+        dispatch(updateClass(classInfo));
         var dates = res.data.classInfo.dates.sort((a,b) => {
             return new Date(a.scheduled_for).getTime() - 
                 new Date(b.scheduled_for).getTime()
         });
         
         var lectures = res.data.classInfo.lectures;
-        console.log(lectures)
-        debugger
+        var assignments = res.data.assignments;
+
         var info = dates.map(element => <LectureItem lectureDate = {element} lectures = {lectures.filter((lecture) => {
             if((new Date(lecture.lectureDate)).getTime() === new Date(element).getTime())
                 return true;
             else
                 return false;
         })}/>)
+
         setLecturesInfo(info);
+        
+        var assignInfo = assignments.map(element => <AssignmentItem assignmentId = {element.assignmentId} assignmentName = {element.assignmentName} assignmentInstruction ={element.instruction}/>)
+        setAssignmentsInfo(assignInfo);
+        
         return info;
     }
 
@@ -70,7 +83,7 @@ const ClassPage = (props) => {
     //   };
 
     return(<div>
-        <p>ClassPage</p>
+        <p>ClassPage <h1>{className}</h1></p>
         <button onClick={openModal} >Add assignment</button>
         <Modal isOpen={modalState} onRequestClose={closeModal}>
                 <form onSubmit = {function(e){
@@ -112,7 +125,8 @@ const ClassPage = (props) => {
             </Modal>
             {lecturesInfo}
             <p>Assignment</p>
-            {isStudent?<SubmitAssignment/>:<div></div>}
+            {assignmentsInfo}
+            {/* {isStudent?{assignmentsInfo}:<div></div>} */}
     </div>);
 }
 

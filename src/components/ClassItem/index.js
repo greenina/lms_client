@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +8,8 @@ import { enterClass } from '../../redux/auth/auth.actions';
 import axios from 'axios';
 import { selectClassId, selectToken } from '../../redux/auth/auth.selectors';
 import fileDownload from 'js-file-download';
+import Modal from 'react-modal';
+import SubmitAssignment from  '../SubmitAssignment/index'
 
 const ClassItem = (props) =>{
     const history = useHistory();
@@ -86,6 +88,34 @@ export const LectureItem = (props) =>{
                 </form>
                 {lectureList}
             </Paper>
+        </div>
+    )
+}
+
+export const AssignmentItem = (props) =>{
+    const history = useHistory();
+    var dispatch = useDispatch();
+    var [modalState, setModalState] = useState(false);
+
+    const openModal = () => {
+        setModalState(true);
+    };
+
+    const closeModal = event => {
+        event.preventDefault();
+        setModalState(false);
+    };
+    
+    return(
+        <div>
+            <PaperButton onClick = {(e)=>{
+                openModal();
+            }}>
+                <h3>Assignment_id : {props.assignmentName}</h3>
+            </PaperButton>
+            <Modal isOpen={modalState} onRequestClose={closeModal}>
+                <SubmitAssignment assignmentId = {props.assignmentId} assignmentInstruction = {props.assignmentInstruction}/>
+            </Modal>
         </div>
     )
 }

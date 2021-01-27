@@ -1,7 +1,8 @@
 const AuthActionTypes = {
     LoginSuccess: 'LoginSuccess',
     checkIfStudent: 'checkIfStudent',
-    enterClass: 'enterClass'
+    enterClass: 'enterClass',
+    updateClass: 'updateClass'
   };
   
   export default AuthActionTypes;

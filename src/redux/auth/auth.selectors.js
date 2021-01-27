@@ -21,3 +21,13 @@ export const selectClassId = createSelector(
   [selectAuth],
   authList => authList.class.classId
 );
+
+export const selectClassStudents = createSelector(
+  [selectAuth],
+  authList => authList.class.students
+);
+
+export const selectClassName = createSelector(
+  [selectAuth],
+  authList => authList.class.className
+);

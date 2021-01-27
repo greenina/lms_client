@@ -15,3 +15,8 @@ export const LoginSuccess = (info) => ({
     type: AuthActionTypes.enterClass,
     classId: _classId
   })
+
+  export const updateClass = (_classInfo) => ({
+    type: AuthActionTypes.updateClass,
+    classInfo: _classInfo
+  })
