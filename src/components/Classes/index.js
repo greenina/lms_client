@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import Modal from 'react-modal';
 import axios from 'axios';
 import ClassPage from '../ClassPage'
@@ -11,6 +11,7 @@ import {selectToken, selectIsStudent, selectUserId} from '../../redux/auth/auth.
 
 const Classes = () =>{
     const history = useHistory();
+    var dispatch = useDispatch();
     var [modalState, setModalState] = useState(false);
     var [instructor, setInstructor] = useState(useSelector(state =>selectUserId(state)));
     var [classId, setClassId] = useState();
@@ -41,11 +42,9 @@ const Classes = () =>{
 
     const submitHandler = (e) =>{
         e.preventDefault();
-        console.log("isStudent",isStudent)
-        console.log(token)
         // debugger;
         if (!isStudent) {
-            axios.post('http://192.249.18.245:8080/class/create', { userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword },
+            axios.post('http://192.249.18.245:8081/class/create', { userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword },
                 {
                     headers: {
                         'x-access-token': token
@@ -57,14 +56,13 @@ const Classes = () =>{
                 })
         }
         else{
-            axios.post('http://192.249.18.245:8080/class/join', {userId:userId,joinPassword:joinPassword,className:className},
+            axios.post('http://192.249.18.245:8081/class/join', {userId:userId,joinPassword:joinPassword,className:className},
             {
                 headers: {
                     'x-access-token': token
                 }
             })
-            .then(response=>{
-                console.log(response)
+            .then((response)=>{
                 if(!response.data.success){
                     history.push('/classpage');
                 }else{
@@ -81,17 +79,13 @@ const Classes = () =>{
     //var classesInfo = [];
     const getDatafromServer = async() =>{
         //console.log("userId",userId);
-        var res = await  axios.post('http://192.249.18.245:8080/class/get',{isStudent:isStudent,userId:userId},{
+        var res = await  axios.post('http://192.249.18.245:8081/class/get',{isStudent:isStudent,userId:userId},{
             headers: {
                 'x-access-token': token
             }
         }) 
-        //var classes = [];
-        var classes = res.data.classes
-        console.log(classes)
-        //classes.push(res.data.classes);
-        //console.log(classes[0].className)
-        var info = classes.map(element => <ClassItem className={element.className} instructor = {element.instructor}/>)
+        var classes = res.data.classes;
+        var info = classes.map(element => <ClassItem className={element.className} instructor = {element.instructor} classId = {element.classId}/>)
         setClassesInfo(info);
         return info;
     }
@@ -121,9 +115,9 @@ const Classes = () =>{
     return(
         <div>
             <Route path="/classpage"exact={true} component={ClassPage}/>
-            <div>수업 목록{classesInfo}</div>
-        {/* {isStudent?<div>{classesInfo}</div>
-            :<div></div>} */}
+            <h3>Classes</h3>
+        {isStudent?<div>{classesInfo}</div>
+            :<div>{classesInfo}</div>}
             <button onClick={openModal} >Add Class</button>
             <Modal isOpen={modalState} onRequestClose={closeModal}>
                 {!isStudent?
@@ -131,7 +125,6 @@ const Classes = () =>{
                     <div>lectureDate : 
                     <MultiDatePickerCalendar onChangeDate={function(dates){
                         setLectureDate(dates);
-                        console.log(lectureDate);
                     }.bind(this)}></MultiDatePickerCalendar>
                     {/* <input onChange={function(e){
                         var dateArr = [];

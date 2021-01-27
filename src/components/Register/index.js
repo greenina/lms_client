@@ -23,8 +23,7 @@ class Register extends Component{
   submitHandler = (e) =>{
     if(this.state.mode){
       e.preventDefault();
-    console.log(this.state)
-    axios.post('http://192.249.18.245:8080/auth/register', this.state)
+    axios.post('http://192.249.18.245:8081/auth/register', this.state)
     .then(response=>{console.log(response)})
     .catch(error =>{
       console.log(error)

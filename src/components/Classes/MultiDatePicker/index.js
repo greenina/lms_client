@@ -12,7 +12,6 @@ const MultiDatePickerCalendar = (props) => {
     
     setDates(newDates);
     props.onChangeDate(newDates.map(dates => dates._d));
-    //console.log(newDates)
   };
   return (
     <DayPickerSingleDateController

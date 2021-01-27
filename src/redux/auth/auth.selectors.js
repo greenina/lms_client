@@ -17,3 +17,7 @@ export const selectUserId = createSelector(
   authList => authList.userId
 );
 
+export const selectClassId = createSelector(
+  [selectAuth],
+  authList => authList.class.classId
+);

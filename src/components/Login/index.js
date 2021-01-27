@@ -7,6 +7,7 @@ import MainPage from '../MainPage'
 import {Route} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import {LoginSuccess, checkIfStudent} from '../../redux/auth/auth.actions';
+import { selectToken } from '../../redux/auth/auth.selectors';
 
 function Login({history}){
 
@@ -23,20 +24,19 @@ function Login({history}){
         break;
     }
   }
-  var token = useSelector(state =>{return state.jwt})
+  var token = useSelector(state =>selectToken(state))
   
   var dispatch = useDispatch();
 
   const submitHandler = (e) =>{
     e.preventDefault();
-    axios.post('http://192.249.18.245:8080/auth/login',{userId:userId, userPassword:userPassword})
+    axios.post('http://192.249.18.245:8081/auth/login',{userId:userId, userPassword:userPassword})
     .then(res=>{
       console.log(res)
       //debugger;
       if(res.data.success === true){
         dispatch(LoginSuccess({userId:userId, jwt: res.data.jwt}));
         dispatch(checkIfStudent(res.data.isStudent));
-        console.log(res.data.isStudent)
         history.push('/main');
       }
       else{

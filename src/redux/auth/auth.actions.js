@@ -11,3 +11,7 @@ export const LoginSuccess = (info) => ({
     isStudent: _isStudent
   })
   
+  export const enterClass = (_classId) => ({
+    type: AuthActionTypes.enterClass,
+    classId: _classId
+  })
