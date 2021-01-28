@@ -44,9 +44,9 @@ const NoticeList = ({noticeList, reRender}) => {
         return noticeList.map((notice) => {
             i = i + 1;
             //return <li key={i}>{notice.title} - {notice.content} <button onClick={() => {deleteNotice(notice.noticeId)}}>Delete</button></li>
-            return <Card className = "my-card" elevation={5}>
-            <CardHeader title = {notice.title} className = "card-header" />
-            <CardContent className = "my-card-content">
+            return <Card className = "my-card4" elevation={5}>
+            <CardHeader title = {notice.title} className = "card-header" subheader = {(new Date(notice.date)).toLocaleString()}/>
+            <CardContent className = "my-card-content4">
             {notice.content}
             </CardContent>
             </Card>

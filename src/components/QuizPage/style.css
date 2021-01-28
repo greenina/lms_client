@@ -1,6 +1,7 @@
-.my-card-content {
+.my-card-content3 {
+  position: relative;
     padding: 16px;
-    height: 70%;
+    height: 40%;
   }
 
   .card-header {
@@ -8,8 +9,8 @@
     margin: 0 2%;
   }
 
-  .my-card {
-    height: 350px;
+  .my-card3 {
+    height: 250px;
     width: 700px;
     margin: 1% auto;
   }
@@ -20,4 +21,14 @@
     overflow:scroll;
     -ms-overflow-style: none;
     background-color: lightgray;
+}
+
+.quizURL {
+  padding: 3px;
+  background-color: lightgray;
+  border: 1px solid lightpink;
+  position: absolute;
+  bottom: 0;
+  width: 95%;
+  border-radius: 10px;
 }

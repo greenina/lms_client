@@ -9,6 +9,7 @@ import {selectToken, selectIsStudent, selectUserId, selectClassId, selectClassNa
 import SubmitAssignment from  '../SubmitAssignment/index'
 import { updateClass } from '../../redux/auth/auth.actions';
 import './style.css'
+import Assignments from '../Assignments/index'
 
 const ClassPage = (props) => {
     var dispatch = useDispatch();
@@ -19,6 +20,8 @@ const ClassPage = (props) => {
     var [endTime, setEndTime] = useState(new Date());
     var [lecturesInfo, setLecturesInfo] = useState();
     var [assignmentsInfo, setAssignmentsInfo] = useState();
+    var [assignmentsList, setAssignmentsList] = useState([]);
+    var [gotoAssignments, setGotoAssignments] = useState(false);
     var token = useSelector(state => {
         return selectToken(state)}
     );
@@ -64,7 +67,7 @@ const ClassPage = (props) => {
         
         var lectures = res.data.classInfo.lectures;
         var assignments = res.data.assignments;
-
+        setAssignmentsList(assignments);
         console.log(res.data)
         var info = dates.map(element => <LectureItem lectureDate = {element} lectures = {lectures.filter((lecture) => {
             if((new Date(lecture.lectureDate)).getTime() === new Date(element).getTime())
@@ -108,10 +111,15 @@ const ClassPage = (props) => {
 
     return(<div>
         <p>ClassPage <h1>{className}</h1></p>
-        <button onClick={openModal} >Add assignment</button>
+        {/* <button onClick={openModal} >Add assignment</button> */}
         <button onClick={quizPage}>See Quiz!!!!!</button>
         <button onClick={noticePage}>See Notice!!</button>
-        <Modal isOpen={modalState} onRequestClose={closeModal}>
+        <button onClick={(e)=>{
+            e.preventDefault();
+            setGotoAssignments(!gotoAssignments);
+        }}>go to assignments</button>
+        {(!gotoAssignments)?<div>
+        {/* <Modal isOpen={modalState} onRequestClose={closeModal}>
                 <form onSubmit = {function(e){
                     e.preventDefault();
                     var req = { assignmentName: e.target.assignmentNameBlank.value, openTime: openTime, endTime: endTime, instruction: e.target.instructionBlank.value };
@@ -135,14 +143,10 @@ const ClassPage = (props) => {
             
                     }}></input></div>
                     <div>openTime : 
-                        {/* <input name = 'openTimeBlank' onChange={function(){
-                    }}></input> */}
                     <DateTimePicker onChange={(date)=>{setOpenTime(date)
                     }} value={openTime} disableClock={true}/>
                     </div>
                     <div>endTime :
-                    {/* <input name = 'endTimeBlank' onChange={function(){
-                    }}></input> */}
                     <DateTimePicker onChange={(date)=>setEndTime(date)} value={endTime} disableClock={true}/>
                     </div>
 
@@ -151,13 +155,15 @@ const ClassPage = (props) => {
                     }}></input></div>
                     <button type="submit">과제 추가하기</button>
                 </form>
-            </Modal>
-            {lecturesInfo}
-            <p>Assignment</p>
+            </Modal> */}
+            {lecturesInfo}</div>
+            /* <p>Assignment</p>
             <div className = 'assignments'>
             {assignmentsInfo}
-            </div>
-            {/* {isStudent?{assignmentsInfo}:<div></div>} */}
+            </div> */
+            /* {isStudent?{assignmentsInfo}:<div></div>} */
+            :<Assignments assignments = {assignmentsList}/>
+        }
     </div>);
 }
 

@@ -18,12 +18,11 @@ const QuizList = ({quizList}) => {
         return quizList.map((quiz) => {
             console.log(quiz.quizName);
             i = i + 1;
-            return <Card className="my-card" elevation={5}>
-                <CardHeader title={quiz.quizName} className="card-header" />
-                <CardContent className="my-card-content">
-                    <div>Content: {quiz.quizContent}</div>
-                    <div>Time:  {quiz.openTime} to {quiz.endTime}</div>
-                    <div>URL: {quiz.quizUrl}</div>
+            return <Card className="my-card3" elevation={5}>
+                <CardHeader title={quiz.quizName} className="card-header"subheader = {<div>[{(new Date(quiz.openTime)).toLocaleString()}]&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;[{(new Date(quiz.endTime)).toLocaleString()}]</div>} />
+                <CardContent className="my-card-content3">
+                    <div>{quiz.quizContent}</div>
+                    <div className = 'quizURL'>Quiz URL: {quiz.quizUrl}</div>
                 </CardContent>
             </Card>
             // return <li key={i}>Name: {quiz.quizName},   Content: {quiz.quizContent},   Time:  {quiz.openTime} to {quiz.endTime}</li>

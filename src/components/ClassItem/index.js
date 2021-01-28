@@ -150,7 +150,7 @@ export const AssignmentItem = (props) =>{
     
     return(
         <Card className = "my-card" elevation={5}>
-            <CardHeader title = {props.assignmentName} className = "card-header" />
+            <CardHeader title = {props.assignmentName} className = "card-header" subheader = {<div>[{(new Date(props.assignment.openTime)).toLocaleString()}]&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;[{(new Date(props.assignment.endTime)).toLocaleString()}]</div>}/>
             <CardContent className = "my-card-content">
                 <SubmitAssignment assignmentId = {props.assignmentId} assignmentInstruction = {props.assignmentInstruction}/>
             </CardContent>

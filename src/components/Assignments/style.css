@@ -1,0 +1,10 @@
+.assignments {
+    height: 750px;
+    width: 750px;
+    overflow:scroll;
+    -ms-overflow-style: none;
+    background-color: lightgray;
+}
+
+.assignments::-webkit-scrollbar{ display:none; }
+

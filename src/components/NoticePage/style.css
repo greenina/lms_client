@@ -1,14 +1,17 @@
-.my-card-content {
+.my-card-content4 {
     padding: 16px;
     height: 70%;
   }
-
+  .card-header .MuiCardHeader-subheader{
+    margin-top: 3px;
+    margin-left: 3px;
+  }
+  
   .card-header {
     border-bottom: 1px solid gray;
-    margin: 0 2%;
   }
 
-  .my-card {
+  .my-card4 {
     height: 350px;
     width: 700px;
     margin: 1% auto;
