@@ -27,7 +27,8 @@ const Calender = () => {
             }
         })
         var timeline = res.data.timeline
-        var info = timeline.map(element => <TaskItem progress={element.progress}taskId={element.assignmentId} taskName={element.assignmentName} dueDate={element.endTime} />)
+        var info = timeline.map(element => <TaskItem progress={element.progress} taskId={element.assignmentId} taskName={element.assignmentName} dueDate={element.endTime} />)
+        //console.log(dueD)
         setTaskTimeline(info);
         console.log("timeline", timeline)
     }
