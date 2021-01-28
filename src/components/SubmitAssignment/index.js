@@ -55,8 +55,11 @@ const SubmitAssignment = (props) => {
         formData.append(
             "assignment", selectedFile
         )
+        formData.append(
+            "progress", 2
+        )
 
-        const submitURL = `http://192.249.18.203:8080/class/assignment/submit?classId=`;
+        const submitURL = `http://192.249.18.245:8081/class/assignment/submit?classId=`;
 
         axios.post(submitURL+classId, formData, {
             params : {

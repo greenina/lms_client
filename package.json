@@ -18,6 +18,7 @@
     "react": "^17.0.1",
     "react-alert": "^7.0.2",
     "react-async": "^10.0.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dates": "^21.8.0",
     "react-datetime-picker": "^3.0.4",
     "react-dom": "^17.0.1",

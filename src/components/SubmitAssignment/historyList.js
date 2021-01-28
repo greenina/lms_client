@@ -8,7 +8,7 @@ const HistoryList = ( {assignmentList, filter} ) => {
     var isStudent = useSelector(state => selectIsStudent(state));
 
     const downloadAssignment = (filename, lastsubmittime) => {
-        axios.get("http://192.249.18.203:8080/class/assignment/download", {responseType: 'blob', params: {userId: "jinho123", assignmentId: "202101611579916756KaGfrXz2rtklRbFifVOpgVeLcPHFrQ", fileName: filename, lastSubmitTime: lastsubmittime}})
+        axios.get("http://192.249.18.245:8081/class/assignment/download", {responseType: 'blob', params: {userId: "jinho123", assignmentId: "202101611579916756KaGfrXz2rtklRbFifVOpgVeLcPHFrQ", fileName: filename, lastSubmitTime: lastsubmittime}})
             .then((res) => {
                 console.log(res);
                 FileDownload(res.data, res.config.params.fileName);

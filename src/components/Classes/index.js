@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -6,7 +6,6 @@ import ClassPage from '../ClassPage'
 import {Route} from 'react-router-dom'
 import MultiDatePickerCalendar from './MultiDatePicker/index'
 import {useHistory} from 'react-router-dom'
-import { useAsync } from 'react-async';
 import ClassItem from '../ClassItem'
 import {selectToken, selectIsStudent, selectUserId} from '../../redux/auth/auth.selectors'
 
@@ -45,7 +44,7 @@ const Classes = () =>{
         e.preventDefault();
         // debugger;
         if (!isStudent) {
-            axios.post(`http://192.249.18.203:8080/class/create`, { lectureDates: lectureDate, className: className, joinPassword: joinPassword },
+            axios.post('http://192.249.18.203:8080/class/create', { userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword },
                 {
                     headers: {
                         'x-access-token': token
@@ -85,8 +84,9 @@ const Classes = () =>{
         }
       }
     //var classesInfo = [];
-    const getDatafromServer = async () =>{
-        var res = await axios.get(`http://192.249.18.203:8080/class/get`,{
+    const getDatafromServer = async() =>{
+        //console.log("userId",userId);
+        var res = await  axios.post('http://192.249.18.203:8080/class/get',{isStudent:isStudent,userId:userId},{
             headers: {
                 'x-access-token': token
             },
@@ -98,6 +98,7 @@ const Classes = () =>{
         console.log(res);
         var classes = res.data.classes;
         var info = classes.map(element => <ClassItem className={element.className} instructor = {element.instructor} classId = {element.classId}/>)
+        console.log("classesinfo",info)
         setClassesInfo(info);
         return info;
     }
@@ -127,8 +128,9 @@ const Classes = () =>{
     return(
         <div>
             <Route path="/classpage"exact={true} component={ClassPage}/>
-        {isStudent?<div>수업 목록{classesInfo}</div>
-            :<div>수업 목록{classesInfo}</div>}
+            <h3>Classes</h3>
+        {isStudent?<div>{classesInfo}</div>
+            :<div>{classesInfo}</div>}
             <button onClick={openModal} >Add Class</button>
             <Modal isOpen={modalState} onRequestClose={closeModal}>
                 {!isStudent?

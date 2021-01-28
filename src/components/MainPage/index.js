@@ -12,10 +12,10 @@ const MainPage = () => {
     return(
         <div>
             <h1>{isStudent?"Student":"Instructor"} Main Page</h1>
-            캘린더랑 class들
             <div>
-                <Calender/>
-                <Classes/>
+            <Classes/>
+            <Calender/>
+                
             </div>
             
         </div>

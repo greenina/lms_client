@@ -42,7 +42,7 @@ const ClassPage = (props) => {
     },[])
 
     const getDatafromServer = async () =>{
-        var res = await axios.get(`http://192.249.18.203:8080/class/info`, {
+        var res = await axios.post('http://192.249.18.203:8080/class/info',  {classId: classId}, {
             headers: {
                 'x-access-token': token
             },
