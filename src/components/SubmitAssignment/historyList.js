@@ -4,7 +4,7 @@ import FileDownload from 'js-file-download';
 const HistoryList = ( {assignmentList} ) => {
 
     const downloadAssignment = (filename, lastsubmittime) => {
-        axios.get("http://192.249.18.203:8080/class/assignment/download", {responseType: 'blob', params: {userId: "jinho123", assignmentId: "202101611579916756KaGfrXz2rtklRbFifVOpgVeLcPHFrQ", fileName: filename, lastSubmitTime: lastsubmittime}})
+        axios.get("http://192.249.18.169:8080/class/assignment/download", {responseType: 'blob', params: {userId: "jinho123", assignmentId: "202101611579916756KaGfrXz2rtklRbFifVOpgVeLcPHFrQ", fileName: filename, lastSubmitTime: lastsubmittime}})
             .then((res) => {
                 console.log(res);
                 FileDownload(res.data, res.config.params.fileName);

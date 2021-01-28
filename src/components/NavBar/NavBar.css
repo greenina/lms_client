@@ -1,0 +1,24 @@
+#LOGO {
+    font-size: 200%;
+    font-weight: bold;
+    color: #FF6F61;
+    font-family: 'NotoSans';
+    src: url('../../fonts/NotoSans/NotoSans-Bold.ttf');
+}
+
+#LOGOUT {
+    font-size: 90%;
+    background-color: white;
+    color: #FF6F61;
+    font-weight: bold;
+    font-family: 'NotoSans';
+    src: url('../../fonts/NotoSans/NotoSans-Bold.ttf');
+    border-color: #FF6F61;
+}
+
+.nav-link {
+    margin-left: 20%;
+    font-weight: bold;
+    font-family: 'NotoSans';
+    src: url('../../fonts/NotoSans/NotoSans-Bold.ttf');
+}

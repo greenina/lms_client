@@ -30,7 +30,7 @@ function Login({history}){
 
   const submitHandler = (e) =>{
     e.preventDefault();
-    axios.post('http://192.249.18.203:8080/auth/login',{userId:userId, userPassword:userPassword})
+    axios.post('http://192.249.18.169:8080/auth/login',{userId:userId, userPassword:userPassword})
     .then(res=>{
       console.log(res)
       //debugger;

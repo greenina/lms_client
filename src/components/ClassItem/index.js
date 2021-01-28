@@ -36,7 +36,7 @@ export const LectureItem = (props) =>{
     );
 
     const downloadLecture = (filename, lectureDate) => {
-        axios.get("http://192.249.18.203:8080/class/download", {
+        axios.get("http://192.249.18.169:8080/class/download", {
             responseType: 'blob',
             headers: {
                 'x-access-token': token
@@ -59,7 +59,7 @@ export const LectureItem = (props) =>{
         const formData = new FormData();
         formData.append("lecturenote", e.target.lecture_note.files[0]); 
         axios
-          .post("http://192.249.18.203:8080/class/upload", formData, {
+          .post("http://192.249.18.169:8080/class/upload", formData, {
             headers: {
                 'x-access-token': token
             },

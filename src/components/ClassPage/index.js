@@ -27,7 +27,7 @@ const ClassPage = (props) => {
     },[])
 
     const getDatafromServer = async () =>{
-        var res = await axios.post('http://192.249.18.203:8080/class/info',  {classId: classId}, {
+        var res = await axios.post('http://192.249.18.169:8080/class/info',  {classId: classId}, {
             headers: {
                 'x-access-token': token
             },
@@ -78,7 +78,7 @@ const ClassPage = (props) => {
                     var req = { assignmentName: e.target.assignmentNameBlank.value, openTime: openTime, endTime: endTime, instruction: e.target.instructionBlank.value };
                     console.log(req);
                     //debugger;
-                    axios.post('http://192.249.18.203:8080/class/assignment/create?classId='+classId, req,
+                    axios.post('http://192.249.18.169:8080/class/assignment/create?classId='+classId, req,
                     {
                         headers: {
                             'x-access-token': token
