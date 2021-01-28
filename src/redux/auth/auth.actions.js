@@ -15,3 +15,7 @@ export const LoginSuccess = (info) => ({
     type: AuthActionTypes.enterClass,
     classId: _classId
   })
+
+  export const Logout = () => ({
+    type: AuthActionTypes.Logout
+  })

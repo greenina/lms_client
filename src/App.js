@@ -7,6 +7,7 @@ import Login from './components/Login';
 import ClassPage from './components/ClassPage'
 import MainPage from './components/MainPage'
 import SubmitAssignment from './components/SubmitAssignment';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
@@ -17,10 +18,10 @@ function App() {
           <Route path="/"exact={true}  component={FirstPage} />
           <Route path="/register" component={Register}/>
           <Route path="/login" component={Login}/>
-          <Route path="/main"exact={true} component={MainPage}/>
-          <Route path="/classpage"exact={true} component={ClassPage}/>
+          <Route path="/main" component={MainPage}/>
+          {/* <Route path="/classpage"exact={true} component={ClassPage}/> */}
           {/* <Route path="/main/assignment/create" exact={true} component={CreateAssignment}/> */}
-          <Route path="/main/assignment/submit" exact={true} component={SubmitAssignment}/>
+          {/* <Route path="/main/assignment/submit" exact={true} component={SubmitAssignment}/> */}
           </Switch>
         </BrowserRouter>
     </div>

@@ -1,0 +1,11 @@
+#classpage {
+    width: 40%;
+    text-align: center;
+    margin-left: 40%
+}
+
+#classcard {
+    margin-left: 20%;
+    margin-top: 1%;
+    position: fixed;
+}
