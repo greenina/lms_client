@@ -1,0 +1,23 @@
+.my-card-content {
+    padding: 16px;
+    height: 70%;
+  }
+
+  .card-header {
+    border-bottom: 1px solid gray;
+    margin: 0 2%;
+  }
+
+  .my-card {
+    height: 350px;
+    width: 700px;
+    margin: 1% auto;
+  }
+
+  .assignments {
+    height: 750px;
+    width: 750px;
+    overflow:scroll;
+    -ms-overflow-style: none;
+    background-color: lightgray;
+}

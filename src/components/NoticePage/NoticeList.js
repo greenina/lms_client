@@ -4,6 +4,16 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { selectClassId, selectToken, selectUserId } from '../../redux/auth/auth.selectors';
+import './style.css' 
+import {
+    Button,
+    Card,
+    CardHeader,
+    CardContent,
+    CardActions,
+    TextField,
+    Typography,
+  } from "@material-ui/core"
 
 const NoticeList = ({noticeList, reRender}) => {
     var userId = useSelector((state) => selectUserId(state));
@@ -33,14 +43,20 @@ const NoticeList = ({noticeList, reRender}) => {
         let i = 0;
         return noticeList.map((notice) => {
             i = i + 1;
-            return <li key={i}>{notice.title} - {notice.content} <button onClick={() => {deleteNotice(notice.noticeId)}}>Delete</button></li>
+            //return <li key={i}>{notice.title} - {notice.content} <button onClick={() => {deleteNotice(notice.noticeId)}}>Delete</button></li>
+            return <Card className = "my-card" elevation={5}>
+            <CardHeader title = {notice.title} className = "card-header" />
+            <CardContent className = "my-card-content">
+            {notice.content}
+            </CardContent>
+            </Card>
         })
     }
 
     return (
-        <ul>
+        <div className = 'assignments'>
             {loadList()}
-        </ul>
+        </div>
     )
 }
 

@@ -10,6 +10,18 @@ import { selectClassId, selectToken, selectUserId } from '../../redux/auth/auth.
 import fileDownload from 'js-file-download';
 import Modal from 'react-modal';
 import SubmitAssignment from  '../SubmitAssignment/index'
+import {
+    Button,
+    Card,
+    CardHeader,
+    CardContent,
+    CardActions,
+    TextField,
+    Typography,
+  } from "@material-ui/core"
+import './style.css'
+import path from './round-add-button.png'
+import path2 from './lecture_note.png'
 
 const ClassItem = (props) =>{
     const history = useHistory();
@@ -32,6 +44,17 @@ const ClassItem = (props) =>{
 export const LectureItem = (props) =>{
     const history = useHistory();
     var dispatch = useDispatch();
+    var [modalState, setModalState] = useState(false);
+
+    const closeModal = event => {
+        event.preventDefault();
+        setModalState(false);
+    };
+
+    const openModal = (e) => {
+        e.preventDefault();
+        setModalState(true);
+    };
 
     var token = useSelector(state => {
         return selectToken(state)}
@@ -54,7 +77,10 @@ export const LectureItem = (props) =>{
             })
     }
 
-    var lectureList = props.lectures.map((lecture) => <button onClick = {() => downloadLecture(lecture.fileName, lecture.lectureDate)}>{lecture.fileName}</button>)
+    var lectureList = props.lectures.map((lecture) => <div className = 'div-lecture'>
+        <button className='img-button2' onClick = {() => downloadLecture(lecture.fileName, lecture.lectureDate)}><img src = {path2} className = 'img-lecture'/></button>
+        <div><small>{lecture.fileName}</small></div>
+        </div>)
 
     const onSubmit = e => {
         e.preventDefault();
@@ -81,14 +107,29 @@ export const LectureItem = (props) =>{
 
     return(
         <div>
-            <Paper>
-                <h3>날짜 : {props.lectureDate}</h3>
+            {/* <Paper>
+                <h3>{(new Date(props.lectureDate)).toLocaleString()}</h3>
                 <form onSubmit={onSubmit}>
                 <button type="submit" >Upload lecture</button>
                 <input type="file" name='lecture_note'/>
                 </form>
                 {lectureList}
-            </Paper>
+            </Paper> */}
+            {/* <img className = 'add-button' src = {path}/> */}
+            <Card className = "my-card2" elevation={5}>
+            <CardHeader title = {(new Date(props.lectureDate)).toLocaleString()} action = {<button className='img-button' onClick = {(e) => {
+                openModal(e)
+            }}>+</button>} className = "card-header" />
+            <CardContent className = "my-card-content2">
+                <Modal isOpen={modalState} onRequestClose={closeModal} className = 'modal'>
+                        <form onSubmit={onSubmit}>
+                            <button type="submit" >Upload lecture</button>
+                            <input type="file" name='lecture_note' />
+                        </form>
+                </Modal>
+                {lectureList}
+            </CardContent>
+        </Card>
         </div>
     )
 }
@@ -108,16 +149,12 @@ export const AssignmentItem = (props) =>{
     };
     
     return(
-        <div>
-            <PaperButton onClick = {(e)=>{
-                openModal();
-            }}>
-                <h3>Assignment_id : {props.assignmentName}</h3>
-            </PaperButton>
-            <Modal isOpen={modalState} onRequestClose={closeModal}>
+        <Card className = "my-card" elevation={5}>
+            <CardHeader title = {props.assignmentName} className = "card-header" />
+            <CardContent className = "my-card-content">
                 <SubmitAssignment assignmentId = {props.assignmentId} assignmentInstruction = {props.assignmentInstruction}/>
-            </Modal>
-        </div>
+            </CardContent>
+        </Card>
     )
 }
 

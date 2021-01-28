@@ -4,6 +4,8 @@ import axios from 'axios';
 import querystring from 'querystring';
 import HistoryList from './historyList';
 import { selectClassId, selectClassStudents, selectIsStudent, selectToken, selectUserId } from '../../redux/auth/auth.selectors';
+import './style.css';
+import path from "./simple-upload-arrow-button.png";
 
 const SubmitAssignment = (props) => {
     var userId = useSelector(state => selectUserId(state));
@@ -15,6 +17,7 @@ const SubmitAssignment = (props) => {
     const [assignmentHistory, setAssignmentHistory] = useState([]);
     const [submit, setSubmit] = useState(false);
     const [filter, setFilter] = useState(null);
+    const [fileName, setFileName] = useState('');
 
     useEffect(() => {
         loadFileHistory();
@@ -51,6 +54,10 @@ const SubmitAssignment = (props) => {
         e.preventDefault();
         const files = e.target.files[0];
         setSelectedFile(files);
+        if(files === undefined)
+            setFileName('');
+        else  
+            setFileName(e.target.files[0].name);
     }
 
     const handleSubmit = (e) => {
@@ -97,17 +104,21 @@ const SubmitAssignment = (props) => {
         }}>{element}</button>)
     }
         return (
-            <div>
-                <h1>Submit Assignment. 학생들을 울려라~~~</h1>
+            <div className = 'content-div'>
                 <div>{props.assignmentInstruction}</div>
+                <br/>
                 {isStudent?
                 <form>
-                    <br/>
-                    <label>
-                        <b>과제를 제출하시오~~</b><br/>
-                        <input type="file" name="assignment" onChange={fileSelector} multiple/> 
-                    </label>
-                    <button text="Submit" onClick={handleSubmit}>Submit</button>
+                        <br/>
+
+                        <div className="image-upload">
+                            <input class="upload-name" value={fileName} disabled="disabled"/>
+                            <label for="file-input">
+                                <img src={path}  className ='image'/>
+                            </label>
+                            <input id="file-input" type="file" name="assignment" onChange={fileSelector} multiple />
+                            <button text="Submit" onClick={handleSubmit}>Submit</button>
+                        </div>
                 </form>:
                 <div>
                         <button onClick={function (e) {
@@ -116,7 +127,6 @@ const SubmitAssignment = (props) => {
                         }}>all</button>
                     {loadStudents()}</div>
                 }
-                <br/>
                 <HistoryList assignmentList={assignmentHistory} filter = {filter} assignmentId = {props.assignmentId}/>
             </div>
             

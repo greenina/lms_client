@@ -8,7 +8,7 @@ import {LectureItem, AssignmentItem} from '../ClassItem'
 import {selectToken, selectIsStudent, selectUserId, selectClassId, selectClassName} from '../../redux/auth/auth.selectors'
 import SubmitAssignment from  '../SubmitAssignment/index'
 import { updateClass } from '../../redux/auth/auth.actions';
-
+import './style.css'
 
 const ClassPage = (props) => {
     var dispatch = useDispatch();
@@ -65,6 +65,7 @@ const ClassPage = (props) => {
         var lectures = res.data.classInfo.lectures;
         var assignments = res.data.assignments;
 
+        console.log(res.data)
         var info = dates.map(element => <LectureItem lectureDate = {element} lectures = {lectures.filter((lecture) => {
             if((new Date(lecture.lectureDate)).getTime() === new Date(element).getTime())
                 return true;
@@ -153,7 +154,9 @@ const ClassPage = (props) => {
             </Modal>
             {lecturesInfo}
             <p>Assignment</p>
+            <div className = 'assignments'>
             {assignmentsInfo}
+            </div>
             {/* {isStudent?{assignmentsInfo}:<div></div>} */}
     </div>);
 }

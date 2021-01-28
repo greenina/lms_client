@@ -1,0 +1,68 @@
+.my-card-content {
+    padding: 16px;
+    height: 70%;
+  }
+
+  .card-header {
+    border-bottom: 1px solid gray;
+    margin: 0 2%;
+  }
+
+  .my-card {
+    height: 350px;
+    width: 700px;
+    margin: 1% auto;
+  }
+
+  .my-card2 {
+    height: 180px;
+    width: 700px;
+    margin: 1% auto;
+  }
+
+  .add-button{
+    width: 20px;
+    height: 20px;
+  }
+
+  .img-button {
+    background: transparent;
+    line-height:30px;
+    text-align:center;
+    /* border: none; */
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+
+
+  .img-button2 {
+    background: transparent;
+    line-height:30px;
+    text-align:center;
+    border: none;
+    cursor: pointer;
+  }
+
+  .img-lecture{
+    width: 50px;
+    height: 50px;
+  }
+
+  .div-lecture{
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+    height: 70px;
+    margin: 0 1%;
+  }
+
+  .my-card-content2 {
+    padding: 16px;
+    height: 40%;
+  }
+  
+  .modal{
+    top: 50%;
+    left:50%;
+  }

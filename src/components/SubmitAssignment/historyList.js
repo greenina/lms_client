@@ -3,6 +3,7 @@ import axios from 'axios';
 import FileDownload from 'js-file-download';
 import {useSelector, useDispatch} from "react-redux";
 import { selectClassId, selectIsStudent, selectToken, selectUserId } from '../../redux/auth/auth.selectors';
+import './style.css'
 
 const HistoryList = ( {assignmentList, filter, assignmentId} ) => {
     var isStudent = useSelector(state => selectIsStudent(state));
@@ -27,7 +28,11 @@ const HistoryList = ( {assignmentList, filter, assignmentId} ) => {
             let i = 0;
             return assignmentList.map((submit) => {
                 i = i + 1;
-                return <li key={i}> {isStudent ? null : submit.userId + ':'} {submit.fileName} {submit.lastSubmitTime}  <button onClick={() => downloadAssignment(submit.fileName, submit.lastSubmitTime)} /> </li>
+                return <div key={i}> 
+                <span>{(new Date(submit.lastSubmitTime)).toLocaleString()}</span>
+                <span className='filename'>{submit.fileName}</span>
+                {isStudent ? null : <span className ='userId'>{submit.userId}</span>}
+                <button onClick={() => downloadAssignment(submit.fileName, submit.lastSubmitTime)} className='download'>download</button> </div>
             })
         }
         else{
@@ -40,13 +45,17 @@ const HistoryList = ( {assignmentList, filter, assignmentId} ) => {
             });
             return newlist.map((submit) => {
                 i = i + 1;
-                return <li key={i}> {isStudent ? null : submit.userId + ':'} {submit.fileName} {submit.lastSubmitTime}  <button onClick={() => downloadAssignment(submit.fileName, submit.lastSubmitTime)} /> </li>
+                return <div key={i}> 
+                <span>{(new Date(submit.lastSubmitTime)).toLocaleString()}</span>
+                <span className='filename'>{submit.fileName}</span>
+                {isStudent ? null : <span className ='userId'>{submit.userId}</span>}
+                <button onClick={() => downloadAssignment(submit.fileName, submit.lastSubmitTime)} className='download'>download</button> </div>
             })
         }
     }
 
     return (
-        <ul>
+        <ul className = 'history-content'>
             {loadList()}
         </ul>
     )

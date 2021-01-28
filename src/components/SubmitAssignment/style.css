@@ -1,0 +1,57 @@
+.history-content {
+    position: relative;
+    border: 1px solid black;
+    padding-inline-start: 0px;
+    padding: 3px;
+    height: 60%;
+    width: 100%;
+    overflow: auto;
+  }
+
+  .filename{
+    position: absolute;
+    left: 30%;
+  }
+  
+  .userId{
+    position: absolute;
+    left: 70%;
+  }
+
+  .content-div{
+    height: 100%;
+  }
+
+  .download{
+    position: absolute;
+    right: 0;
+  }
+
+  .image-upload>input {
+    display: none;
+  }
+  .image-upload .upload-name {
+      display: inline-block;
+      /* padding: .5em .75em; label의 패딩값과 일치 */
+      font-size: inherit;
+      font-family: inherit;
+      line-height: normal;
+      vertical-align: middle;
+      background-color: #f5f5f5;
+      border: 1px solid #ebebeb;
+      border-bottom-color: #e2e2e2;
+      border-radius: .25em;
+      -webkit-appearance: none; /* 네이티브 외형 감추기 */
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    .image{
+        vertical-align: middle;
+        width: 23px;
+        height: 23px;
+        border: 1px solid lightgray;
+        border-radius: .25em;
+        margin: 3px;
+        margin-right: 30px;
+    }
