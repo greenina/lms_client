@@ -19,7 +19,7 @@ const ClassList = ({classesInfo, changeClassPage}) => {
     }
 
     return (
-            <SideNav
+            <SideNav id="sideb"
                 onSelect={(selected) => {
                     console.log(selected)
                     changeClassPage(selected);

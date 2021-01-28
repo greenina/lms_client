@@ -8,3 +8,7 @@
     position: fixed;
     margin-left: 15%;
 }
+
+#classlist {
+    height: 100%;
+}
