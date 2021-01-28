@@ -29,7 +29,7 @@ class Register extends Component{
       console.log(error)
     })
     alert('회원가입에 성공하셨습니다.')
-    // document.location.href = "/";
+    //document.location.href = "/";
     //document.location.href('/login')
     }
     else{
