@@ -44,7 +44,7 @@ const Classes = () =>{
         e.preventDefault();
         // debugger;
         if (!isStudent) {
-            axios.post('http://192.249.18.203:8080/class/create', { userId: instructor, lectureDate: lectureDate, className: className, joinPassword: joinPassword },
+            axios.post('http://192.249.18.203:8080/class/create', { userId: instructor, lectureDates: lectureDate, className: className, joinPassword: joinPassword },
                 {
                     headers: {
                         'x-access-token': token
@@ -86,12 +86,13 @@ const Classes = () =>{
     //var classesInfo = [];
     const getDatafromServer = async() =>{
         //console.log("userId",userId);
-        var res = await  axios.post('http://192.249.18.203:8080/class/get',{isStudent:isStudent,userId:userId},{
+        var res = await  axios.get('http://192.249.18.203:8080/class/get',{
             headers: {
                 'x-access-token': token
             },
             params: {
-                userId: userId
+                userId: userId,
+                isStudent: isStudent
             }
 
         }) 

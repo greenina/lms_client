@@ -4,7 +4,7 @@ import PaperButton from "react-paper-button";
 import { useHistory } from 'react-router-dom'
 import { enterClass } from '../../redux/auth/auth.actions';
 import axios from 'axios';
-import { selectToken, selectUserId } from '../../redux/auth/auth.selectors';
+import { selectClassId, selectToken, selectUserId } from '../../redux/auth/auth.selectors';
 import './style.css';
 
 const TaskItem = (props) => {
@@ -28,6 +28,7 @@ const TaskItem = (props) => {
     }
     )
 
+    const classId = useSelector(state => selectClassId(state));
     const changeProgress = (e) => {
         setProgress(e.target.value)
         updateProgress();
@@ -38,9 +39,13 @@ const TaskItem = (props) => {
     }, [progress])
 
     const updateProgress = async () => {
-        var res = await axios.post('http://192.249.18.245:8081/class/updateprogress', { userId: userid, assignmentId: props.taskId, progress: progress }, {
+        var res = await axios.post('http://192.249.18.203:8080/class/updateprogress', { userId: userid, assignmentId: props.taskId, progress: progress }, {
             headers: {
                 'x-access-token': token
+            },
+            params: {
+                userId: userid,
+                classId: classId
             }
         })
         console.log("res", res.data.success);

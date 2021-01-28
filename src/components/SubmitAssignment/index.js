@@ -3,13 +3,14 @@ import {useSelector, useDispatch} from "react-redux";
 import axios from 'axios';
 import querystring from 'querystring';
 import HistoryList from './historyList';
-import { selectClassId, selectClassStudents, selectIsStudent, selectUserId } from '../../redux/auth/auth.selectors';
+import { selectClassId, selectClassStudents, selectIsStudent, selectToken, selectUserId } from '../../redux/auth/auth.selectors';
 
 const SubmitAssignment = (props) => {
     var userId = useSelector(state => selectUserId(state));
     var classId = useSelector(state => selectClassId(state));
     var isStudent = useSelector(state => selectIsStudent(state));
     var students = useSelector(state=> selectClassStudents(state));
+    var token = useSelector(state=>selectToken(state));
     const [selectedFile, setSelectedFile] = useState(null);
     const [assignmentHistory, setAssignmentHistory] = useState([]);
     const [submit, setSubmit] = useState(false);
@@ -21,18 +22,28 @@ const SubmitAssignment = (props) => {
 
     const loadFileHistory = () => {
         if(isStudent){
-            axios.get('http://192.249.18.203:8080/class/assignment/load', { params: { userId: userId, assignmentId: props.assignmentId } })
+            axios.get('http://192.249.18.203:8080/class/assignment/load', {
+                headers: {
+                    'x-access-token': token
+                },
+                params: { userId: userId, classId: classId, assignmentId: props.assignmentId }
+            })
                 .then(async (data) => {
                     console.log(data);
                     setAssignmentHistory(data.data.history);
                 })
         }
         else{
-            axios.get('http://192.249.18.203:8080/class/assignment/loadall', {params: {assignmentId: props.assignmentId}})
-            .then(async (data) => {
-                console.log(data);
-                setAssignmentHistory(data.data.history);
+            axios.get('http://192.249.18.203:8080/class/assignment/loadall', {
+                headers: {
+                    'x-access-token': token
+                },
+                params: { userId: userId, classId: classId, assignmentId: props.assignmentId }
             })
+                .then(async (data) => {
+                    console.log(data);
+                    setAssignmentHistory(data.data.history);
+                })
         }
     }
 
@@ -59,9 +70,12 @@ const SubmitAssignment = (props) => {
             "progress", 2
         )
 
-        const submitURL = `http://192.249.18.245:8081/class/assignment/submit?classId=`;
+        const submitURL = `http://192.249.18.203:8080/class/assignment/submit`;
 
-        axios.post(submitURL+classId, formData, {
+        axios.post(submitURL, formData, {
+            headers: {
+                'x-access-token': token
+            },
             params : {
                 classId: classId,
                 userId: userId
@@ -103,7 +117,7 @@ const SubmitAssignment = (props) => {
                     {loadStudents()}</div>
                 }
                 <br/>
-                <HistoryList assignmentList={assignmentHistory} filter = {filter}/>
+                <HistoryList assignmentList={assignmentHistory} filter = {filter} assignmentId = {props.assignmentId}/>
             </div>
             
         )

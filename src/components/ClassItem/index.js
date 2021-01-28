@@ -6,7 +6,7 @@ import PaperButton from "react-paper-button";
 import {useHistory} from 'react-router-dom'
 import { enterClass } from '../../redux/auth/auth.actions';
 import axios from 'axios';
-import { selectClassId, selectToken } from '../../redux/auth/auth.selectors';
+import { selectClassId, selectToken, selectUserId } from '../../redux/auth/auth.selectors';
 import fileDownload from 'js-file-download';
 import Modal from 'react-modal';
 import SubmitAssignment from  '../SubmitAssignment/index'
@@ -36,7 +36,8 @@ export const LectureItem = (props) =>{
     var token = useSelector(state => {
         return selectToken(state)}
     );
-
+    var classId = useSelector((state)=> selectClassId(state));
+    var userId = useSelector((state)=> selectUserId(state));
     const downloadLecture = (filename, lectureDate) => {
         axios.get(`http://192.249.18.203:8080/class/download`, {
             responseType: 'blob',
@@ -44,7 +45,7 @@ export const LectureItem = (props) =>{
                 'x-access-token': token
             },
             params: {
-                classId: classId, fileName: filename, lectureDate: lectureDate
+                classId: classId, fileName: filename, lectureDate: lectureDate, userId: userId
             }
         })
             .then((res) => {
@@ -55,7 +56,6 @@ export const LectureItem = (props) =>{
 
     var lectureList = props.lectures.map((lecture) => <button onClick = {() => downloadLecture(lecture.fileName, lecture.lectureDate)}>{lecture.fileName}</button>)
 
-    var classId = useSelector((state)=> selectClassId(state));
     const onSubmit = e => {
         e.preventDefault();
         const formData = new FormData();
@@ -67,7 +67,8 @@ export const LectureItem = (props) =>{
             },
             params: {
                 classId: classId,
-                lectureDate: props.lectureDate
+                lectureDate: props.lectureDate,
+                userId: userId
             }
         })
           .then(res => {
