@@ -9,6 +9,7 @@ import {selectToken, selectIsStudent, selectUserId, selectClassId, selectClassNa
 import SubmitAssignment from  '../SubmitAssignment/index'
 import { updateClass } from '../../redux/auth/auth.actions';
 
+
 const ClassPage = (props) => {
     var dispatch = useDispatch();
     const history = useHistory();
