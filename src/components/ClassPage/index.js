@@ -1,8 +1,9 @@
 import React, { Component, useEffect, useState } from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import axios from 'axios';
+import {useHistory} from 'react-router';
 import {LectureItem} from '../ClassItem'
-import {selectToken, selectIsStudent, selectUserId, selectClassId} from '../../redux/auth/auth.selectors';
+import {selectToken, selectUserId} from '../../redux/auth/auth.selectors';
 import './style.css'
 
 const ClassPage = ({classId}) => {
@@ -36,7 +37,7 @@ const ClassPage = ({classId}) => {
                 });
                 var lectures = res.data.classInfo.lectures;
 
-                setLecturesInfo(dates.map(element => <LectureItem lectureDate = {element} lectures = {lectures.filter((lecture) => {
+                setLecturesInfo(dates.map(element => <LectureItem classId={classId} lectureDate = {element} lectures = {lectures.filter((lecture) => {
                     return new Date(lecture.lectureDate).getTime() === new Date(element).getTime()
                 })}/>))
             })

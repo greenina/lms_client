@@ -56,7 +56,7 @@ const Classes = () =>{
 
     return (
         <div>
-            <ClassList classesInfo={classesInfo} changeClassPage={changeClassPage}/>
+            <ClassList classesInfo={classesInfo} changeClassPage={changeClassPage} id="classlist"/>
             <ClassCard className={className} classInstructor={classInstructor} id="classcard"/>
             <ClassPage classId={classId} id="classpage"/>
         </div>

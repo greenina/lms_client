@@ -21,8 +21,8 @@ const NavBar = () => {
     })
 
     return (
-        <Container>
-            <Navbar bg="light" variant="light">
+        <Container >
+            <Navbar bg="light" variant="light" >
                 <Navbar.Brand href="#home" id="LOGO">LMS</Navbar.Brand>
                 <Nav className="mr-auto">
                 <Nav.Link href="/main/classes" >Class</Nav.Link>
