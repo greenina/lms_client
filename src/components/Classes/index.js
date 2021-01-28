@@ -86,6 +86,7 @@ const Classes = () =>{
         }) 
         var classes = res.data.classes;
         var info = classes.map(element => <ClassItem className={element.className} instructor = {element.instructor} classId = {element.classId}/>)
+        console.log("classesinfo",info)
         setClassesInfo(info);
         return info;
     }
