@@ -32,3 +32,8 @@
     font-family: 'NotoSans';
     src: url('../../fonts/NotoSans/NotoSans-Bold.ttf');
 }
+
+#navbar {
+    width: 80%;
+    margin-left: 15%
+}

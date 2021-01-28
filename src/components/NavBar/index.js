@@ -21,8 +21,8 @@ const NavBar = () => {
     })
 
     return (
-        <Container >
-            <Navbar bg="light" variant="light" >
+        <div id="navbar">
+            <Navbar bg="light" variant="light">
                 <Navbar.Brand href="#home" id="LOGO">LMS</Navbar.Brand>
                 <Nav className="mr-auto">
                 <Nav.Link href="/main/classes" >Class</Nav.Link>
@@ -33,7 +33,7 @@ const NavBar = () => {
                 
                 <Button id="LOGOUT" onClick={logout}>LOGOUT</Button>
             </Navbar>
-        </Container>
+        </div>
     )
 }
 

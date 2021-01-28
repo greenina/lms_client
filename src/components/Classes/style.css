@@ -5,11 +5,6 @@
 }
 
 #classcard {
-    margin-left: 20%;
-    margin-top: 1%;
     position: fixed;
-}
-
-#classlist {
-    position: fixed;
+    margin-left: 15%;
 }

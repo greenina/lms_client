@@ -8,6 +8,7 @@ import './style.css'
 
 const ClassPage = ({classId}) => {
     var [lecturesInfo, setLecturesInfo] = useState('');
+    const [uploadLecture, setUploadLecture] = useState(true);
 
     var token = useSelector(state => {
         return selectToken(state)}
@@ -16,6 +17,10 @@ const ClassPage = ({classId}) => {
     const userId = useSelector(state =>{
         return selectUserId(state);
     })
+
+    useEffect(() => {
+        getDatafromServer();
+    }, [uploadLecture])
 
     useEffect(()=>{
         getDatafromServer();
@@ -37,7 +42,7 @@ const ClassPage = ({classId}) => {
                 });
                 var lectures = res.data.classInfo.lectures;
 
-                setLecturesInfo(dates.map(element => <LectureItem classId={classId} lectureDate = {element} lectures = {lectures.filter((lecture) => {
+                setLecturesInfo(dates.map(element => <LectureItem setUploadLecture={setUploadLecture} uploadLecture={uploadLecture} classId={classId} lectureDate = {element} lectures = {lectures.filter((lecture) => {
                     return new Date(lecture.lectureDate).getTime() === new Date(element).getTime()
                 })}/>))
             })

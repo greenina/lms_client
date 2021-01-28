@@ -15,14 +15,19 @@
 }
 
 .my-card2 {
-    height: 180px;
+    height: 200px;
     width: 700px;
     margin: 1% auto;
 }
 
 .add-button {
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
+}
+
+.lectureimg {
+    display: inline-block;
+    width: 40px;
 }
 
 .img-button {
@@ -30,8 +35,8 @@
     line-height: 30px;
     text-align: center;
     /* border: none; */
-    width: 32px;
-    height: 32px;
+    width: 5px;
+    height: 5px;
     cursor: pointer;
 }
 
