@@ -11,7 +11,7 @@ const HistoryList = ( {assignmentList, filter, assignmentId} ) => {
     var token = useSelector(state => selectToken(state));
 
     const downloadAssignment = (filename, lastsubmittime) => {
-        axios.get("http://192.249.18.203:8080/class/assignment/download", {responseType: 'blob',
+        axios.get("http://192.249.18.245:8080/class/assignment/download", {responseType: 'blob',
             headers: {
             'x-access-token': token
             },

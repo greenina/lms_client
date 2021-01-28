@@ -48,7 +48,7 @@ const QuizPage = () => {
     }
 
     const createQuiz = (e) => {
-        axios.post(`http://192.249.18.203:8080/class/quiz/create`, {
+        axios.post(`http://192.249.18.245:8080/class/quiz/create`, {
             quizName: quizName,
             openTime: openTime,
             endTime: endTime,
@@ -73,7 +73,7 @@ const QuizPage = () => {
     const loadQuiz = () => {
         console.log(userId);
         console.log(classId);
-        axios.get(`http://192.249.18.203:8080/class/quiz/load`, {params: {
+        axios.get(`http://192.249.18.245:8080/class/quiz/load`, {params: {
             userId: userId, 
             classId: classId
         },

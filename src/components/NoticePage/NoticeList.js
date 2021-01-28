@@ -18,7 +18,7 @@ const NoticeList = ({noticeList, reRender}) => {
     }, [submit])
 
     const deleteNotice = (noticeid) => {
-        axios.post('http://192.249.18.203:8080/class/notice/delete', {noticeId: noticeid}, {
+        axios.post('http://192.249.18.245:8080/class/notice/delete', {noticeId: noticeid}, {
             headers: {
                 'x-access-token': token
             }, 

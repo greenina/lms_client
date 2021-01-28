@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;900&display=swap');
+.cover{
+    padding-left: 10;
+    display: flex;
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    /* background-color: white; */
+    align-items: center;
+    /* background-color: #ff6f61; */
+}
+.images{
+    display: grid;
+}
+.imagecover{
+    /* background-color: #ff6f61; */
+    padding-left: 300px;
+}
+.logo{
+    padding-top: 200px;
+    padding-bottom: 30px;
+    padding-left: 100px;
+}
+.intro{
+    padding-top: 200px;
+    padding-left: 100px;
+}
+.registerBtn{
+    text-align: center;
+}
+.loginBtn{
+    text-align: center;
+}
+.input{
+    padding-bottom: 40px;
+}
+.input-id{
+    width: "300px";
+    height:"30px";
+    padding-bottom: 20px;
+}
+.id{
+    font-size: 20px;
+    opacity: 0.7;
+}
+.input-password{
+    width: "300px";
+    height:"30px";
+    padding-bottom: 10px;
+}
+.password{
+    font-size: 20px;
+    opacity: 0.7;
+}
+.login{
+   
+    border-radius: 30px;
+    width: 600px;
+    height: 500px;
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+    padding-top: 80px;
+}
+.loginText{
+    font-size: 80px;
+    padding-bottom: 50px;
+}
+.blank{
+    background-color: #ff6f61;
+    width: 900px;
+    height: 500px;
+    /* padding-left: 300px; */
+    padding-top: 130px;
+    border-radius: 30px;
+    opacity: 0.9;
+}
+.loginBtn{
+    padding-bottom: 15px;
+}
+.roundLogin{
+
+}
+
+
+
+
+
+.register{
+    padding-bottom: 20px;
+}
+.input-id2{
+    width: "300px";
+    height:"30px";
+    padding-bottom: 10px;
+}
+.input-password2{
+    width: "300px";
+    height:"30px";
+    padding-bottom: 10px;
+}
+.register{
+    border-radius: 30px;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+    padding-bottom: 30px;
+}
+.registerText{
+    font-size: 80px;
+    padding-bottom: 30px;
+}
+.roundRegister{
+    padding-top: 50px;
+}
+

@@ -35,7 +35,7 @@ const StudentLogin = ({history}) => {
 
   const submitHandler = (e) =>{
     e.preventDefault();
-    axios.post(`http://192.249.18.203:8080/auth/login`, {userId: userId, userPassword: userPassword, isStudent: isStudent})
+    axios.post(`http://192.249.18.245:8080/auth/login`, {userId: userId, userPassword: userPassword, isStudent: isStudent})
     .then(response=>{
       dispatch(LoginSuccess(response.data.jwt));
       //document.location.href = "/studmain";

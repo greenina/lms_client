@@ -22,7 +22,7 @@ const SubmitAssignment = (props) => {
 
     const loadFileHistory = () => {
         if(isStudent){
-            axios.get('http://192.249.18.203:8080/class/assignment/load', {
+            axios.get('http://192.249.18.245:8080/class/assignment/load', {
                 headers: {
                     'x-access-token': token
                 },
@@ -34,7 +34,7 @@ const SubmitAssignment = (props) => {
                 })
         }
         else{
-            axios.get('http://192.249.18.203:8080/class/assignment/loadall', {
+            axios.get('http://192.249.18.245:8080/class/assignment/loadall', {
                 headers: {
                     'x-access-token': token
                 },
@@ -70,7 +70,7 @@ const SubmitAssignment = (props) => {
             "progress", 2
         )
 
-        const submitURL = `http://192.249.18.203:8080/class/assignment/submit`;
+        const submitURL = `http://192.249.18.245:8080/class/assignment/submit`;
 
         axios.post(submitURL, formData, {
             headers: {

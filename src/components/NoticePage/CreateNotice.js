@@ -16,7 +16,7 @@ const CreateNotice = ({classId, userId}) => {
 
     const createNotice = () => {
         console.log("pressed create notice button");
-        axios.post(`http://192.249.18.203:8080/class/notice/create`, {title: noticeTitle, content: noticeContent}, {
+        axios.post(`http://192.249.18.245:8080/class/notice/create`, {title: noticeTitle, content: noticeContent}, {
             headers: {
                 'x-access-token': token
             },

@@ -27,7 +27,7 @@ const Calender = () => {
         setViewMode(e.target.value);
     }
     const getDatafromServer = async () => {
-        var res = await axios.post('http://192.249.18.203:8080/class/timeline', { userId: userId }, {
+        var res = await axios.post('http://192.249.18.245:8080/class/timeline', { userId: userId }, {
             headers: {
                 'x-access-token': token
             },

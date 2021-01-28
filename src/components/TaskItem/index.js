@@ -39,7 +39,7 @@ const TaskItem = (props) => {
     }, [progress])
 
     const updateProgress = async () => {
-        var res = await axios.post('http://192.249.18.203:8080/class/updateprogress', { userId: userid, assignmentId: props.taskId, progress: progress }, {
+        var res = await axios.post('http://192.249.18.245:8080/class/updateprogress', { userId: userid, assignmentId: props.taskId, progress: progress }, {
             headers: {
                 'x-access-token': token
             },
