@@ -71,11 +71,20 @@ const TaskItem = (props) => {
                         </div>
                     )
             }</div>
-            <div>진행현황 </div>
             <div>
-                <input value="0" name={props.taskId} type="radio" checked={progress === "0"} onChange={changeProgress} /> <span class="up">Not Started</span>
-                <input value="1" name={props.taskId} type="radio" checked={progress === "1"} onChange={changeProgress} /> <span class="up">In Progress</span>&nbsp;&nbsp;
-                <input value="2" name={props.taskId} type="radio" checked={progress === "2"} onChange={changeProgress} /> <span class="up">Finished</span>
+                <input id="0" class="input-hidden" value="0" name={props.taskId} type="radio" checked={progress === "0"} onChange={changeProgress} />
+                    <label for="0">
+                        <img width="30px"src="/images/red.png"/>
+                    </label>
+                {/* <span class="up">Not Started</span> */}
+                <input id="1" class="input-hidden" value="1" name={props.taskId} type="radio" checked={progress === "1"} onChange={changeProgress} />
+                <label for="1">
+                        <img width="30px"src="/images/yellow.png"/>
+                    </label>
+                <input id="2" class="input-hidden" value="2" name={props.taskId} type="radio" checked={progress === "2"} onChange={changeProgress} />
+                <label for="2">
+                        <img width="30px"src="/images/blue.png"/>
+                    </label>
             </div>
                 ---------------------------------------------
         </div>
