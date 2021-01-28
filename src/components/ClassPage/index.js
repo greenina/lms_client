@@ -7,6 +7,7 @@ import {LectureItem} from '../ClassItem'
 import {selectToken, selectIsStudent, selectUserId, selectClassId} from '../../redux/auth/auth.selectors'
 import SubmitAssignment from  '../SubmitAssignment/index'
 
+
 const ClassPage = (props) => {
     var [modalState, setModalState] = useState(false);
     var [openTime, setOpenTime] = useState(new Date());
