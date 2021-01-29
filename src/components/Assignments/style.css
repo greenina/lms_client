@@ -4,7 +4,11 @@
     overflow:scroll;
     -ms-overflow-style: none;
     background-color: lightgray;
+    margin-left: 40%;
 }
 
+.add-assign{
+    margin-left: 40%;
+}
 .assignments::-webkit-scrollbar{ display:none; }
 

@@ -20,3 +20,7 @@ export const LoginSuccess = (info) => ({
     type: AuthActionTypes.updateClass,
     classInfo: _classInfo
   })
+  
+  export const Logout = () => ({
+    type: AuthActionTypes.Logout
+  })

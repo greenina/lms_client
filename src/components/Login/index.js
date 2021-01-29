@@ -38,7 +38,10 @@ function Login({history}){
         console.log(userId);
         dispatch(LoginSuccess({userId:userId, jwt: res.data.jwt}));
         dispatch(checkIfStudent(res.data.isStudent));
-        history.push('/main');
+        history.push({
+          pathname: '/main/classes',
+          state: {userId: userId}
+        });
       }
       else{
         alert('login fail');

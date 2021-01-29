@@ -1,0 +1,25 @@
+#classcard {
+    width: 15rem;
+    height: 40rem;
+    margin-top: 10px;
+    align-items: center;
+    border-color: #FF6F61;
+    border-width: 2px;
+}
+
+#cardtitle {
+    text-align: center;
+    font-style: bold;
+    font-size: 160%;
+}
+
+#classinstructor {
+    text-align: center;
+}
+
+.classmenu {
+    width: 110%;
+    border-color: #696969;
+    text-align: center;
+    margin: 5px;
+}

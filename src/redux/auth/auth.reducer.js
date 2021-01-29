@@ -36,6 +36,20 @@ const authReducer = (state = INITIAL_STATE, action) => {
       className: action.classInfo.className
       }
       return { ...state, class: _class }
+    case 'Logout':
+      return {
+        jwt: 'init',
+        isStudent:true,
+        userId:'',
+        class: {
+          classId: '',
+          className: '',
+          lectureDates: '',
+          notices:'',
+          lectureContents:'',
+          assignments: ''
+        }
+      }
     default:
       return state;
   }

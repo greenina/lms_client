@@ -28,21 +28,42 @@ const Assignments = (props) => {
         event.preventDefault();
         setModalState(false);
     };
-    useEffect(()=>{
-        listAssignments(props.assignments);
-    },[])
 
-    const listAssignments = (assignments) => {
-        var assignInfo = assignments.map(element => <AssignmentItem assignmentId = {element.assignmentId} assignmentName = {element.assignmentName} assignmentInstruction ={element.instruction} assignment = {element}/>)
-        setAssignmentsInfo(assignInfo);
+    useEffect(()=>{
+        getDatafromServer();
+    },[assignmentsInfo])
+
+    const getDatafromServer = () =>{
+        axios.get('http://192.249.18.203:8080/class/info', {
+            headers: {
+                'x-access-token': token
+            },
+            params: {
+                classId: classId, 
+                userId: userId
+            }})
+            .then((res) => {
+                var assignments = res.data.assignments;
+
+                var assignInfo = assignments.map(element => <AssignmentItem assignmentId = {element.assignmentId} assignmentName = {element.assignmentName} assignmentInstruction ={element.instruction} assignment = {element}/>)
+                 setAssignmentsInfo(assignInfo);
+            })
     }
+
+    // useEffect(()=>{
+    //     listAssignments(props.assignments);
+    // },[])
+
+    // const listAssignments = (assignments) => {
+    //     var assignInfo = assignments.map(element => <AssignmentItem assignmentId = {element.assignmentId} assignmentName = {element.assignmentName} assignmentInstruction ={element.instruction} assignment = {element}/>)
+    //     setAssignmentsInfo(assignInfo);
+    // }
     const openModal = () => {
         setModalState(true);
     };
 
     return(<div>
-        <p>Assignment</p>
-            <button onClick={openModal} >Add assignment</button>
+            <button onClick={openModal} className='add-assign'>Add assignment</button>
             <Modal isOpen={modalState} onRequestClose={closeModal}>
                 <form onSubmit = {function(e){
                     e.preventDefault();

@@ -8,3 +8,8 @@
 
 .assignments::-webkit-scrollbar{ display:none; }
 
+#classpage {
+    width: 30%;
+    border-color: white;
+    text-align: center;
+}
