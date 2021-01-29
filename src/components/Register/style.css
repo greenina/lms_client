@@ -1,6 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
-.recruit{
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;900&display=swap');
+.roundregister{
+    height: 980px;
     text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    /* background-color: #ff6f61; */
 }
 
 .name-input{

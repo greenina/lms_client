@@ -10,6 +10,7 @@ import SubmitAssignment from './components/SubmitAssignment';
 import NoticePage from './components/NoticePage';
 import QuizPage from './components/QuizPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Calendar from './components/Calender'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" component={Register}/>
           <Route path="/login" component={Login}/>
           <Route path="/main" component={MainPage}/>
+          <Route path="/calendar"component={Calendar}/>
           {/* <Route path="/classpage"exact={true} component={ClassPage}/> */}
           {/* <Route path="/main/assignment/create" exact={true} component={CreateAssignment}/> */}
           {/* <Route path="/main/assignment/submit" exact={true} component={SubmitAssignment}/> */}

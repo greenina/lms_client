@@ -15,6 +15,10 @@ const NavBar = () => {
         dispatch(Logout());
         history.push('/login');
     }
+    const goCalendar = (e)=>{
+        e.preventDefault();
+        history.push('/calendar')
+    }
 
     const userId = useSelector(state => {
         return selectUserId(state)

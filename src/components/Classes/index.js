@@ -12,6 +12,7 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import Assignments from '../Assignments/index';
 import CreateClass from '../CreateClass';
 import JoinClass from '../JoinClass';
+import Calendar from '../Calender';
 
 
 const Classes = () =>{
@@ -19,7 +20,7 @@ const Classes = () =>{
     var [classId, setClassId] = useState('');
     var [className, setClassName] = useState('');
     var [classInstructor, setClassInstructor] = useState('');
-    var [classesInfo, setClassesInfo] = useState([{className: "hello world", classId: "hello world", instructor: "hello world"}]);
+    var [classesInfo, setClassesInfo] = useState([{className: "hello world", classId: "hello world", instructor: "hello world", classId: "sadfad"}]);
 
     var token = useSelector(state => {
         return selectToken(state)}
@@ -50,9 +51,6 @@ const Classes = () =>{
             },
             headers: {
                 'x-access-token': token
-            },
-            params: {
-                userId: userId
             }
         })
             .then((res) => {
@@ -77,6 +75,7 @@ const Classes = () =>{
                 <Route path="/main/classes/assignments" exact={true} component={Assignments}/>
                 <Route path="/main/classes/createclass" exact={true} component={CreateClass}/>
                 <Route path="/main/classes/joinclass" exact={true} component={JoinClass}/>
+                <Route path="/main/calendar" component={Calendar}/>
             </Switch>
         </div>
 

@@ -1,8 +1,11 @@
 import React, { Component, useEffect, useState } from 'react';
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import {enterClass} from '../../../redux/auth/auth.actions';
+import {useDispatch} from 'react-redux';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import './style.css'
 const ClassList = ({classesInfo, changeClassPage}) => {
+    const dispatch = useDispatch();
 
     const loadClassInfo = () => {
         return (
@@ -21,8 +24,17 @@ const ClassList = ({classesInfo, changeClassPage}) => {
     return (
             <SideNav id="sideb"
                 onSelect={(selected) => {
-                    console.log(selected)
-                    changeClassPage(selected);
+                    console.log(selected);
+                    if(selected === "ClassPage") {
+                        return changeClassPage(selected);
+                    } else if (selected === "createClass") {
+                        return changeClassPage(selected);
+                    } else if (selected === "joinClass") {
+                        return changeClassPage(selected);
+                    } else {
+                        dispatch(enterClass({classId: selected}));
+                        return changeClassPage(selected);
+                    }
                 }}>
                 <SideNav.Toggle />
                 <SideNav.Nav defaultSelected={classesInfo.classId}>

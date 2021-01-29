@@ -34,6 +34,7 @@ const Assignments = (props) => {
     },[assignmentsInfo])
 
     const getDatafromServer = () =>{
+        
         axios.get('http://192.249.18.203:8080/class/info', {
             headers: {
                 'x-access-token': token
@@ -69,6 +70,7 @@ const Assignments = (props) => {
                     e.preventDefault();
                     var req = { assignmentName: e.target.assignmentNameBlank.value, openTime: openTime, endTime: endTime, instruction: e.target.instructionBlank.value };
                     console.log(req);
+                    console.log(classId)
                     axios.post('http://192.249.18.203:8080/class/assignment/create', req,
                     {
                         headers: {

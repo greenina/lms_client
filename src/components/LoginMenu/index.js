@@ -25,11 +25,12 @@ const LoginMenu = () =>{
             {/* <Route path="/studlogin" component={StudentLogin}/>
             <Route path="/proflogin" component={ProfLogin}/> */}
             <Route path="/login" component={Login}/>
-            <div className="login">
+            <Login/>
+            {/* <div className="login">
                 <button onClick={Login}>통합 로그인</button>
                 <img  className = 'submit' src = "/images/login_prof.png" height='300px' onClick={goProfLogin}></img>
                 <img className = 'submit' src = "/images/login_stud2.png" height='300px' onClick={goStudLogin}></img>
-            </div>
+            </div> */}
             
             <button className="registerBtn" onClick={goRegister}>회원가입</button>
         </div>
