@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;900&display=swap');
 .a{
     color: red;
 }
@@ -14,3 +15,17 @@
     position: absolute;
     left: -9999px;
   }
+/* .taskItem{
+    background-color: aqua;
+} */
+.taskItem{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: bolder;
+    padding-left: 20px;
+    background-color: #fdf3f2;
+    border-radius: 20px;
+    border-color: black;
+    border-width: 10px;
+    margin-bottom: 10px;
+    margin-right: 1000px;
+}

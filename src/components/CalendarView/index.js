@@ -24,21 +24,10 @@ const CalendarView = ({ tasks }) => {
   return (
     <div className="App">
       <FullCalendar
+      
         defaultView="dayGridMonth"
         plugins={[dayGridPlugin]}
-//         events ={ [{
-//     title: 'zzz',
-//     backgroundColor: '#ff6f61',
-//     borderColor: '#ff6f61',
-//     start: '2021-01-28',
-//     end: '2021-01-29'
-//   },
-//   {
-//     end: "2021-1-29",
-//     start: "2021-1-30",
-//     title: "zzzz"
-//     }]
-// }
+
         events={tasks}
       />
     </div>
